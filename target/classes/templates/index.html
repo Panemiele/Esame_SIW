@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="https://www.thymeleaf.org/%22%3E
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-<title>TaskManager</title>
+    <title>TaskManager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    	  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    	  crossorigin="anonymous">
 </head>
 <body>
-	<h1 th:text="'Welcome, ' + ${user.firstName} + '!'"></h1>
-	<h4>
-		<a href="/index">My Projects</a>
-	</h4>
-	<h4>
-		<a href="/index">Shared with me</a>
-	</h4>
-	<h4>
-		<a href="/index">Create new Project</a>
-	</h4>
-	<h4>
-		<a href="/users/me">Profile</a>
-	</h4>
-	<h4>
-		<a href="/logout">Logout</a>
-	</h4>
-
+	<div class="container text-center mt-4">
+		<h1 class="shadow">
+			Welcome
+		</h1>
+		<p> <a href="/login" class="btn btn-primary">Login</a></p>
+		<p> <a href="/users/register" class="btn btn-primary">Register</a></p>
+	</div>
 </body>
 </html>
