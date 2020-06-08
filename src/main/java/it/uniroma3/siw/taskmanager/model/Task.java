@@ -2,6 +2,7 @@ package it.uniroma3.siw.taskmanager.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -49,7 +50,11 @@ public class Task {
      */
     @Column(nullable = false)
     private LocalDateTime lastUpdateTimestamp;
-
+    
+    /*
+	@ManyToMany
+	private List<ProjectTag> tags;	//Lista di tag del task
+	*/
     public Task() {}
 
     public Task(String name,

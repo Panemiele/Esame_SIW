@@ -51,7 +51,11 @@ public class Project {
             cascade = CascadeType.REMOVE)   // if a Project is deleted, all its tasks must be deleted too
     @JoinColumn(name="project_id")
     private List<Task> tasks;
-
+    
+    /*
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<ProjectTag> tags;		//lista dei tag del progetto
+	*/
     public Project() {
         this.members = new ArrayList<>();
         this.tasks = new ArrayList<>();

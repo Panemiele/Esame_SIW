@@ -33,11 +33,24 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	
+        String[] staticResources  =  {
+                "/css/**",
+                "/images/**",
+                "/fonts/**",
+                "/scripts/**",
+                "/wallpapers/**",
+                "/static/wallpapers/**"
+            };
+    	
         http
-                // authorization paragraph: here we define WHO can access WHICH pages
                 .authorizeRequests()
                 // anyone (authenticated or not) can access the welcome page, the login page, and the registration page
                 .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/users/register").permitAll()
+
+                //ADD BY GABRIELE: Permette di visualizzare i vari background anche a chi
+                //				   NON è stato autenticato
+                .antMatchers(HttpMethod.GET, staticResources).permitAll()
                 // anyone (authenticated or not) can send POST requests to the login endpoint and the register endpoint
                 .antMatchers(HttpMethod.POST, "/login", "/users/register").permitAll()
                 // only authenticated users with ADMIN authority can access the admin pag
@@ -45,8 +58,6 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 // all authenticated users can access all the remaining other pages
                 .anyRequest().authenticated()
 
-                // login paragraph: here we define how to login
-                // use formlogin protocol to perform login
                 .and().formLogin()
                 // after login is successful, redirect to the logged user homepage
                 .defaultSuccessUrl("/home")
@@ -57,18 +68,12 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 // - write a controller method that returns our login view when a GET method is sent to /login
                 //   (but Spring would still handle the POST automatically)
 
-                // logout paragraph: we are going to define here how to logout
                 .and().logout()
                 .logoutUrl("/logout")               // logout is performed when sending a GET to "/logout"
                 .logoutSuccessUrl("/index");        // after logout is successful, redirect to /index page
     }
 
-    /**
-     * This method provides the SQL queries to get username and password.
-     * NOTE: field denoted in Java by camelCase convention
-     *       are denoted in Postgres by snake_case convention by default
-     *       (e.g. "userName" field in the Java class results in "user_name" DB column)
-     */
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(this.datasource)
