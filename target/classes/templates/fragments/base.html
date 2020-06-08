@@ -3,7 +3,6 @@
 	xmlns:th="https://www.thymeleaf.org">
 <head th:fragment="head(title, wallpaper)">
 <meta charset="UTF-8">
-<link th:href="@{fogliCSS/background.css}" rel="stylesheet">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
@@ -11,7 +10,15 @@
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
 <title th:text="${title}"></title>
+<style>
+body {
+  background: url('${wallpaper}') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}</style>
 </head>
-<body>
+<body >
 </body>
 </html>

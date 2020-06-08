@@ -54,7 +54,8 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 // anyone (authenticated or not) can send POST requests to the login endpoint and the register endpoint
                 .antMatchers(HttpMethod.POST, "/login", "/users/register").permitAll()
                 // only authenticated users with ADMIN authority can access the admin pag
-                .antMatchers(HttpMethod.GET, "/admin").hasAnyAuthority(ADMIN_ROLE)
+                .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
+                .antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
                 // all authenticated users can access all the remaining other pages
                 .anyRequest().authenticated()
 
@@ -70,7 +71,9 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and().logout()
                 .logoutUrl("/logout")               // logout is performed when sending a GET to "/logout"
-                .logoutSuccessUrl("/index");        // after logout is successful, redirect to /index page
+                .logoutSuccessUrl("/index")        // after logout is successful, redirect to /index page
+        		.invalidateHttpSession(true)       // interrompe la sessione quando fai logout
+        		.clearAuthentication(true).permitAll(); // interrompe la sessione quando fai logout
     }
 
 
