@@ -27,7 +27,7 @@ public class ProjectController {
 	ProjectValidator projectValidator;
 	
 	@Autowired
-	SessionData sessionData,
+	SessionData sessionData;
 	
 	
     @RequestMapping(value = { "/projects" }, method = RequestMethod.GET)
