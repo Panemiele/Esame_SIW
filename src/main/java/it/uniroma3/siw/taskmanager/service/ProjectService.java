@@ -4,7 +4,6 @@ import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.User;
 import it.uniroma3.siw.taskmanager.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,5 +60,11 @@ public class ProjectService {
     public Project shareProjectWithUser(Project project, User user) {
         project.addMember(user);
         return this.projectRepository.save(project);
+    }
+    
+    
+    @Transactional
+    public List<Project> retrieveProjectsOwnedBy(User loggedUser){
+    	return this.projectRepository.findByOwner(loggedUser);
     }
 }

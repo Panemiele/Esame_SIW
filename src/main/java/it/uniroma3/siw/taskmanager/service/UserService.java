@@ -54,4 +54,10 @@ public class UserService {
             result.add(user);
         return result;
     }
+    
+    @Transactional
+    public List<User> getMembers() {
+        Optional<User> result = this.userRepository.findById(id);
+        return result.orElse(null);
+    }
 }

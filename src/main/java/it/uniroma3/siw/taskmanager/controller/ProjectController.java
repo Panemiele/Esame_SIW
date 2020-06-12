@@ -3,6 +3,7 @@ package it.uniroma3.siw.taskmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ProjectController {
 	ProjectService projectService;
 	
 	@Autowired
-	UserService userSerivice;
+	UserService userService;
 	
 	@Autowired
 	ProjectValidator projectValidator;
@@ -40,4 +41,18 @@ public class ProjectController {
         return "myOwnedProjects";
     }
 
+    @RequestMapping(value = { "/projects/{project.Id}" }, method = RequestMethod.GET)
+    public String project(Model model, @PathVariable Long projectId) {
+    	Project project = projectService.getProject(projectId);
+        User loggedUser = sessionData.getLoggedUser();
+    	if(project == null)
+    		return "redirect:/projects";
+    	List<User> members = userService.getMembers();
+    	if(!project.getOwner().equals(loggedUser) && !members.contains(loggedUser))
+    		return "redirect:/projects";
+    	model.addAttribute("loggedUser", loggedUser);
+    	model.addAttribute("project", project);
+    	model.addAttribute("members", members);
+    	return "project";
+    }
 }
