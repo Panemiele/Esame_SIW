@@ -61,7 +61,7 @@ public class Project {
         this.tasks = new ArrayList<>();
     }
 
-    public Project(String name, String descriptio) {
+    public Project(String name, String description) {
         this();
         this.name = name;
         this.description = description;
