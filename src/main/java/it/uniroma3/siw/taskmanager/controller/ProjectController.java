@@ -47,7 +47,7 @@ public class ProjectController {
         User loggedUser = sessionData.getLoggedUser();
     	if(project == null)
     		return "redirect:/projects";
-    	List<User> members = userService.getMembers();
+    	List<User> members = userService.getMembers(project);
     	if(!project.getOwner().equals(loggedUser) && !members.contains(loggedUser))
     		return "redirect:/projects";
     	model.addAttribute("loggedUser", loggedUser);

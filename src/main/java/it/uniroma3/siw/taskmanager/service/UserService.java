@@ -1,4 +1,5 @@
 package it.uniroma3.siw.taskmanager.service;
+import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.User;
 import it.uniroma3.siw.taskmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,7 @@ public class UserService {
     }
     
     @Transactional
-    public List<User> getMembers() {
-        Optional<User> result = this.userRepository.findById(id);
-        return result.orElse(null);
+    public List<User> getMembers(Project project) {
+        return this.userRepository.findByVisibleProjects(project);
     }
 }
