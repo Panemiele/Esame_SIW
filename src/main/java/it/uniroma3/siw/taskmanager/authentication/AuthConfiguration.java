@@ -34,15 +34,6 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	
-        String[] staticResources  =  {
-                "/css/**",
-                "/images/**",
-                "/fonts/**",
-                "/scripts/**",
-                "/wallpapers/**",
-                "/static/wallpapers/**"
-            };
-    	
         http
                 .authorizeRequests()
                 // anyone (authenticated or not) can access the welcome page, the login page, and the registration page
@@ -50,7 +41,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 
                 //ADD BY GABRIELE: Permette di visualizzare i vari background anche a chi
                 //				   NON è stato autenticato
-                .antMatchers(HttpMethod.GET, staticResources).permitAll()
+                .antMatchers(HttpMethod.GET, "/fogliCSS/**", "/images/**", "/wallpaper/**").permitAll()
                 // anyone (authenticated or not) can send POST requests to the login endpoint and the register endpoint
                 .antMatchers(HttpMethod.POST, "/login", "/users/register").permitAll()
                 // only authenticated users with ADMIN authority can access the admin pag
@@ -60,6 +51,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
 
                 .and().formLogin()
+                //.loginPage("/login")
                 // after login is successful, redirect to the logged user homepage
                 .defaultSuccessUrl("/home")
 
