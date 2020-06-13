@@ -1,6 +1,8 @@
 package it.uniroma3.siw.taskmanager.model;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +33,9 @@ public class Project {
      */
     @Column
     private String description;
+    
+    @Column
+    private LocalDate date;
 
     /**
      * Name for this Project
@@ -144,4 +149,12 @@ public class Project {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 }

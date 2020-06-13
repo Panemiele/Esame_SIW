@@ -39,9 +39,6 @@ public class ProjectController {
     public String myOwnedProjects(Model model) {
         User loggedUser = sessionData.getLoggedUser();
         List<Project> projectsList = projectService.retrieveProjectsOwnedBy(loggedUser);
-        for(Project project : projectsList) {
-        	System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQUESTOID " + project.getId()+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        }
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("projectsList", projectsList);
 
