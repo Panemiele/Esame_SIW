@@ -2,8 +2,11 @@ package it.uniroma3.siw.taskmanager.model;
 
 import javax.persistence.*;
 
-import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,8 +37,9 @@ public class Project {
     @Column
     private String description;
     
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column
-    private LocalDate date;
+    private Date date;
 
     /**
      * Name for this Project
@@ -150,11 +154,11 @@ public class Project {
         return Objects.hash(name);
     }
 
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 }

@@ -23,7 +23,7 @@ public class ProjectValidator implements Validator{
     	Project project = (Project) o;
     	String name = project.getName().trim();
     	String description = project.getDescription().trim();
-    	LocalDate date = project.getDate();
+
 
         if (name.isBlank())
             errors.rejectValue("name", "required");
