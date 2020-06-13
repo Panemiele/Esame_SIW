@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskManager</title>
+</head>
+<body>
+
+<table>
+        <tr>
+        	<td>Task name: </td>
+			<td th:text="${task.name}"></td>	
+		</tr>
+		<tr>
+        	<td>Task description: </td>
+			<td th:text="${task.description}" style="color:gray"></td>	
+		</tr>
+			<h4 th:text="${task.description}" style="color:gray"></h4>	
+		<tr>
+        	<td>Task Creation Date: </td>
+			<td th:text="${task.creationTimestamp}" style="color:green"></td>	
+		</tr>
+		
+		</table>
+		<h4>
+			<a href="/projects">My Projects</a>
+		</h4>
+
+		<h4>
+			<a href="/home">Home</a>
+		</h4>	
+</body>
+</html>
