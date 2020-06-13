@@ -46,7 +46,7 @@ public class ProjectController {
     }
     
 
-    @RequestMapping(value = { "/projects/{project.Id}" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/projects/{projectId}" }, method = RequestMethod.GET)
     public String project(Model model, @PathVariable Long projectId) {
     	Project project = projectService.getProject(projectId);
         User loggedUser = sessionData.getLoggedUser();
