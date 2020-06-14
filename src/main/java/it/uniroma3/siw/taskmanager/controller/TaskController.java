@@ -44,7 +44,6 @@ public class TaskController {
 	 @RequestMapping(value = { "/projects/tasks/{taskId}" }, method = RequestMethod.GET)
 	    public String project(Model model, @PathVariable Long taskId) {
 	    	Task task = taskService.getTask(taskId);
-	        User loggedUser = sessionData.getLoggedUser();
 	    	if(task == null)
 	    		return "redirect:/projects";
 	    	model.addAttribute("task", task);
@@ -72,10 +71,41 @@ public class TaskController {
 	    	taskValidator.validate(task, taskBindingResult);
 	    	if(!taskBindingResult.hasErrors()) {
 	    		currentProject.addTask(task);
+	    		task.setProject(currentProject);
 	    		this.taskService.saveTask(task);
 	    		return "redirect:/projects/tasks/" + task.getId();
 	    	}
 	    	model.addAttribute("loggedUser", loggedUser);
 	    	return "addTask";
+	    }
+	    
+	    @RequestMapping(value = {"/tasks/update/{taskId}"}, method = RequestMethod.GET)
+	    public String updateProjectForm(@PathVariable Long  taskId,Model model) {
+	    	User loggedUser = this.sessionData.getLoggedUser();
+	    	Task task = taskService.getTask(taskId);
+	    	if(loggedUser.getId() == task.getProject().getOwner().getId()) 
+	    	{
+	    	model.addAttribute("taskForm", task);
+	    	return "updateTask";
+	    	}
+	    	else return  "noPermission";
+	    }
+	    @RequestMapping(value = {"/tasks/update/{taskId}"}, method = RequestMethod.POST)
+	    public String updateProject(@PathVariable Long taskId,
+	    							@Valid @ModelAttribute("taskForm")
+									Task task,
+									BindingResult taskBindingResult,Model model) {
+
+	        
+	    	taskValidator.validate(task, taskBindingResult);
+	    	if(!taskBindingResult.hasErrors()) {
+	    		Task taskToUpdate = this.taskService.getTask(taskId);
+	    		taskToUpdate.setDescription(task.getDescription());
+	    		taskToUpdate.setName(task.getName());
+	    		this.taskService.saveTask(taskToUpdate);
+	    		return "redirect:/projects";
+	    	}
+			return "redirect:/projects/update/" + taskId;
+
 	    }
 }

@@ -33,6 +33,11 @@ public class Task {
     private String description;
 
     /**
+     * Project for this task
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Project project;
+    /**
      * Boolean flag specifying whether this Task is completed or not
      */
     @Column(nullable = false)
@@ -149,4 +154,12 @@ public class Task {
     public int hashCode() {
         return Objects.hash(name, completed, creationTimestamp, lastUpdateTimestamp);
     }
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 }

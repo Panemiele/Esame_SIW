@@ -6,8 +6,6 @@
     <title>TaskManager</title>
 </head>
 <body>
-<div  align =  "center">
-
 	<h1 th:text="${project.name}"></h1>
 	<h4 th:text="${project.description}" style="color:gray"></h4>
 	<h4 th:text="${project.date}" style="color:gray"></h4>
@@ -27,7 +25,8 @@
 		<li th:each="task : ${project.tasks}">
 			<div th:text="${task.name}" style="color:black"></div>
 			<div th:text="${task.description}" style="color:gray"></div>
-			<div th:text="${task.creationTimestamp}" style="color:green"></div>				
+			<div th:text="${task.creationTimestamp}" style="color:green"></div>	
+			<a th:href="'/tasks/update/' + ${task.id}">Update Information</a>					
 		</li>
 	</ul>
 		<h4>
@@ -40,6 +39,5 @@
 				<h4>
 			<a href="/home">Home</a>
 		</h4>
-	</div>
 </body>
 </html>

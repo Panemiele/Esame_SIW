@@ -98,9 +98,12 @@ public class ProjectController {
     
     @RequestMapping(value = {"/projects/update/{projectId}"}, method = RequestMethod.GET)
     public String updateProjectForm(@PathVariable Long  projectId,Model model) {
-
+    	User loggedUser = this.sessionData.getLoggedUser();
+    	
+    	if(loggedUser.getId() == projectService.getProject(projectId).getOwner().getId()) {
     	model.addAttribute("projectForm", projectService.getProject(projectId));
-    	return "updateProject";
+    	return "updateProject";}
+    	else return  "noPermission";
     }
     @RequestMapping(value = {"/projects/update/{projectId}"}, method = RequestMethod.POST)
     public String updateProject(@PathVariable Long  projectId,
@@ -118,8 +121,7 @@ public class ProjectController {
     		this.projectService.saveProject(projectToUpdate);
     		return "redirect:/projects";
     	}
-    	System.out.println("ZI");
-		return "redirect:/projects/update/" + project.getId();
+		return "redirect:/projects/update/" + projectId;
 
     }
 
