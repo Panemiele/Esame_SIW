@@ -20,7 +20,9 @@
 					<td><a th:href="'/projects/' + ${project.id}"
 						th:text="${project.name}">...</a></td>
 					<td th:text="${project.description}"></td>
-					<td><a href="/projects/remove/${project}">remove </a>
+					<td><a th:href="'/projects/update/' + ${project.id}">Update Information</a>
+					
+					<td><a th:href="'/projects/remove/' + ${project.id}">Remove Project</a>
 				</tr>
 			</tbody>
 		</table>

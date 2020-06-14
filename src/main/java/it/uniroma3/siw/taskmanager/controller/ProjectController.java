@@ -87,6 +87,42 @@ public class ProjectController {
     }
     
     
+
+    @RequestMapping(value = {"/projects/remove/{projectId}"}, method = RequestMethod.GET)
+    public String deleteProject(@PathVariable Long  projectId, Model model) {
+        Project projectToDelete =  this.projectService.getProject(projectId);
+        this.projectService.deleteProject(projectToDelete);
+		return "redirect:/projects";
+
+    }
+    
+    @RequestMapping(value = {"/projects/update/{projectId}"}, method = RequestMethod.GET)
+    public String updateProjectForm(@PathVariable Long  projectId,Model model) {
+
+    	model.addAttribute("projectForm", projectService.getProject(projectId));
+    	return "updateProject";
+    }
+    @RequestMapping(value = {"/projects/update/{projectId}"}, method = RequestMethod.POST)
+    public String updateProject(@PathVariable Long  projectId,
+    							@Valid @ModelAttribute("projectForm")
+								Project project,
+								BindingResult projectBindingResult,Model model) {
+
+        
+    	projectValidator.validate(project, projectBindingResult);
+    	if(!projectBindingResult.hasErrors()) {
+    		Project projectToUpdate = this.projectService.getProject(projectId);
+    		projectToUpdate.setDate(project.getDate());
+    		projectToUpdate.setDescription(project.getDescription());
+    		projectToUpdate.setName(project.getName());
+    		this.projectService.saveProject(projectToUpdate);
+    		return "redirect:/projects";
+    	}
+    	System.out.println("ZI");
+		return "redirect:/projects/update/" + project.getId();
+
+    }
+
     @RequestMapping(value = {"/projects/sharedProjects"}, method = RequestMethod.GET)
     public String sharedProjects(Model model) {
     	User loggedUser = this.sessionData.getLoggedUser();
@@ -94,17 +130,5 @@ public class ProjectController {
     	model.addAttribute("sharedProjectsList", sharedProjectsList);
     	return "sharedProjects";
     }
-    
-    @RequestMapping(value = {"/projects/remove/{project}"}, method = RequestMethod.GET)
-    public String deleteProject(@PathVariable Project project, Model model) {
-    	System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n Project eliminato \n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        User loggedUser = sessionData.getLoggedUser();
-    	this.projectService.deleteProject(project);
-        List<Project> projectsList = projectService.retrieveProjectsOwnedBy(loggedUser);
-        model.addAttribute("projectsList", projectsList);
-    	return "myOwnedProjects";
-    }
-
-    
     
 }
