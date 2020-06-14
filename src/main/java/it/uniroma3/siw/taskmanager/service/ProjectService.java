@@ -64,6 +64,12 @@ public class ProjectService {
     
     
     @Transactional
+    public List<Project> retrieveVisibleProjects(User loggedUser){
+    	return this.projectRepository.findByMembers(loggedUser);
+    }
+    
+    
+    @Transactional
     public List<Project> retrieveProjectsOwnedBy(User loggedUser){
     	return this.projectRepository.findByOwner(loggedUser);
     }

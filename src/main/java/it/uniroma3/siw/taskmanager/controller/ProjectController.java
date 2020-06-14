@@ -85,4 +85,26 @@ public class ProjectController {
     	model.addAttribute("loggedUser", loggedUser);
     	return "addProject";
     }
+    
+    
+    @RequestMapping(value = {"/projects/sharedProjects"}, method = RequestMethod.GET)
+    public String sharedProjects(Model model) {
+    	User loggedUser = this.sessionData.getLoggedUser();
+    	List<Project> sharedProjectsList = this.projectService.retrieveVisibleProjects(loggedUser);
+    	model.addAttribute("sharedProjectsList", sharedProjectsList);
+    	return "sharedProjects";
+    }
+    
+    @RequestMapping(value = {"/projects/remove/{project}"}, method = RequestMethod.GET)
+    public String deleteProject(@PathVariable Project project, Model model) {
+    	System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n Project eliminato \n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        User loggedUser = sessionData.getLoggedUser();
+    	this.projectService.deleteProject(project);
+        List<Project> projectsList = projectService.retrieveProjectsOwnedBy(loggedUser);
+        model.addAttribute("projectsList", projectsList);
+    	return "myOwnedProjects";
+    }
+
+    
+    
 }
