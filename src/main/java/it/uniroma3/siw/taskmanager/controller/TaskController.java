@@ -1,7 +1,5 @@
 package it.uniroma3.siw.taskmanager.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.uniroma3.siw.taskmanager.controller.session.SessionData;
-import it.uniroma3.siw.taskmanager.controller.validation.ProjectValidator;
 import it.uniroma3.siw.taskmanager.controller.validation.TaskValidator;
 import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.Task;
