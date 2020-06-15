@@ -77,4 +77,45 @@ public class AuthenticationController {
         }
         return "registerUser";
     }
+    @RequestMapping(value = {"/users/update"}, method = RequestMethod.GET)
+    public String updateProfileForm(Model model) {
+    	User loggedUser = this.sessionData.getLoggedUser();
+        model.addAttribute("userForm", loggedUser);
+        Credentials loggedC = this.sessionData.getLoggedCredentials();
+        
+        model.addAttribute("credentialsForm", new Credentials(loggedC.getUserName(),"********"));
+        return "updateProfile";
+    }
+    @RequestMapping(value = {"/users/update"}, method = RequestMethod.POST)
+    public String updateProfile(@Valid @ModelAttribute("userForm") User user,
+    							BindingResult userBindingResult,
+    							@Valid @ModelAttribute("credentialsForm") Credentials credentials,
+    							BindingResult credentialsBindingResult,
+    							Model model) {
+    	 // validate user and credentials fields
+        this.userValidator.validate(user, userBindingResult);
+        this.credentialsValidator.updateProfileValidate(credentials, credentialsBindingResult);
+
+        // if neither of them had invalid contents, store the User and the Credentials into the DB
+        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+       
+        	
+        	// user part
+        	User loggedUser = this.sessionData.getLoggedUser();
+        	loggedUser.setFirstName(user.getFirstName());
+        	loggedUser.setLastName(user.getLastName());
+        	
+        	// credentials part
+        	Credentials c = this.sessionData.getLoggedCredentials();
+        	c.setUserName(credentials.getUserName());
+        	c.setPassword(credentials.getPassword());
+        	
+            // set the user and store the credentials;
+            // this also stores the User, thanks to Cascade.ALL policy
+            credentialsService.saveCredentials(c);
+            
+            return "redirect:/home";
+        }
+        return "updateProfile";
+    }
 }

@@ -40,6 +40,24 @@ public class CredentialsValidator implements Validator {
         else if (password.length() < MIN_PASSWORD_LENGTH || password.length() > MAX_PASSWORD_LENGTH)
             errors.rejectValue("password", "size");
     }
+    
+    public void updateProfileValidate(Object o, Errors errors) {
+    	 Credentials credentials = (Credentials) o;
+         String userName = credentials.getUserName().trim();
+         String password = credentials.getPassword().trim();
+
+         if (userName.isBlank())
+             errors.rejectValue("userName", "required");
+         else if (userName.length() < MIN_USERNAME_LENGTH || userName.length() > MAX_USERNAME_LENGTH)
+             errors.rejectValue("userName", "size");
+
+
+         if (password.isBlank())
+             errors.rejectValue("password", "required");
+         else if (password.length() < MIN_PASSWORD_LENGTH || password.length() > MAX_PASSWORD_LENGTH)
+             errors.rejectValue("password", "size");
+    	
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
