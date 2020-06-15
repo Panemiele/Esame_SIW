@@ -14,14 +14,20 @@ import javax.validation.Valid;
 
 import it.uniroma3.siw.taskmanager.controller.session.SessionData;
 import it.uniroma3.siw.taskmanager.controller.validation.ProjectValidator;
+import it.uniroma3.siw.taskmanager.model.Credentials;
 import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.User;
+import it.uniroma3.siw.taskmanager.service.CredentialsService;
 import it.uniroma3.siw.taskmanager.service.ProjectService;
 import it.uniroma3.siw.taskmanager.service.UserService;
 
 @Controller
 public class ProjectController {
 	
+	
+    @Autowired
+    CredentialsService credentialsService;
+    
 	@Autowired
 	ProjectService projectService;
 	
@@ -131,6 +137,33 @@ public class ProjectController {
     	List<Project> sharedProjectsList = this.projectService.retrieveVisibleProjects(loggedUser);
     	model.addAttribute("sharedProjectsList", sharedProjectsList);
     	return "sharedProjects";
+    }
+    
+    @RequestMapping(value = {"/project/share/{projectId}"}, method = RequestMethod.GET)
+    public String shareProjectForm(@PathVariable Long projectId, Model model) {
+    	model.addAttribute("memberForm", new Credentials());
+    	return "addMember";
+    }
+    
+    
+    @RequestMapping(value = {"/project/share/{projectId}"}, method = RequestMethod.POST)
+    public String shareProject(@PathVariable Long projectId, 
+    						   @Valid @ModelAttribute("memberForm") Credentials credentials,
+    						   BindingResult credentialsBindingResult,
+    						   Model model) {
+    	Project project = this.projectService.getProject(projectId);
+    	Credentials c = this.credentialsService.getCredentials(credentials.getUserName());
+    	if(c==null)
+    		credentialsBindingResult.rejectValue("userName", "notExists");
+    	else {
+	    	User u = c.getUser();
+	    	this.projectValidator.validateMember(u, project, credentialsBindingResult);
+	    	if(!credentialsBindingResult.hasErrors()) {
+	    		this.projectService.shareProjectWithUser(project, u);
+	    		return "redirect:/projects";
+	    	}
+    	}
+    	return "addMember";
     }
     
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
 import it.uniroma3.siw.taskmanager.model.Project;
+import it.uniroma3.siw.taskmanager.model.User;
 
 @Component
 public class ProjectValidator implements Validator{
@@ -37,6 +38,13 @@ public class ProjectValidator implements Validator{
         
 
 
+    }
+    
+    public void validateMember(User member, Project project, Errors errors) {
+        if(member.equals(project.getOwner()))
+            errors.rejectValue("userName", "isOwner");
+        if(project.getMembers().contains(member))
+            errors.rejectValue("userName", "duplicate");
     }
 
 	@Override
