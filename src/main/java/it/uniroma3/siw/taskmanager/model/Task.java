@@ -2,6 +2,7 @@ package it.uniroma3.siw.taskmanager.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -43,9 +44,6 @@ public class Task {
     /**
      * Boolean flag specifying whether this Task is completed or not
      */
-    
-    
-    
     @Column(nullable = false)
     private boolean completed;
 
@@ -61,10 +59,11 @@ public class Task {
     @Column(nullable = false)
     private LocalDateTime lastUpdateTimestamp;
     
-    /*
-	@ManyToMany
-	private List<ProjectTag> tags;	//Lista di tag del task
-	*/
+    
+    @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER)
+    private List<ProjectTag> tags;   //Lista di tag del task
+
+    
     public Task() {}
 
     public Task(String name,
@@ -145,7 +144,15 @@ public class Task {
         this.lastUpdateTimestamp = lastUpdateTimestamp;
     }
 
-    @Override
+    public List<ProjectTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<ProjectTag> tags) {
+		this.tags = tags;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

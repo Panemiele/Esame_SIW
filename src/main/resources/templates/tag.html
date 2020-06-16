@@ -4,5 +4,11 @@
 <head th:replace="fragments/base.html::head(title='Task Manager - tag')">
 </head>
 <body>
+	<div align="center">
+		<div th:text="'Name: ' + ${tag.name}"></div>
+		<div th:text="'Description ' + ${tag.description}"></div>
+		<div style="padding-top:30px"><a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back</a></div>
+		<div style="padding-top:30px"><a href="/home" class="btn btn-primary">Home</a></div>
+	</div>
 </body>
 </html>

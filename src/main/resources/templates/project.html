@@ -60,6 +60,8 @@
 	                    <td th:text="${task.description}"></td>
 	                    <td th:text=${task.creationTimestamp}></td>
 	                    <td><a th:href="'/tasks/update/' + ${task.id}">Update Information</a>
+	                    <td><a th:href="'/projects/' + ${project.id} + '/tasks/' +
+	                    				${task.id} + '/addTag'">Add tag</a>
 	                    </td>
 	                </tr>
 	            </tbody>
@@ -81,7 +83,7 @@
 					<th>Description</th>
 				</tr>
 				<tr th:each="tag : ${project.tags}">
-					<td><a th:href="'/home'" th:text="${tag.name}">...</a></td>
+					<td><a th:href="'/projects/' + ${project.id} + '/tag/' + ${tag.id}" th:text="${tag.name}">...</a></td>
 					<td th:text="${tag.description }">...</td>
 				</tr>
 			</table>

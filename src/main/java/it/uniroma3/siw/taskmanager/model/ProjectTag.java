@@ -1,5 +1,6 @@
 package it.uniroma3.siw.taskmanager.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -39,6 +41,10 @@ public class ProjectTag {
     @ManyToOne(fetch = FetchType.EAGER)
     private Project project;
 
+    
+    @ManyToMany
+    private List<Task> tasks;
+    
 
 	public ProjectTag() {
 	}
@@ -51,6 +57,30 @@ public class ProjectTag {
 
 	    }
 	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
 
 	public String getName() {
 		return name;

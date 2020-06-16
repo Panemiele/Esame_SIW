@@ -1,5 +1,6 @@
 package it.uniroma3.siw.taskmanager.service;
 
+import it.uniroma3.siw.taskmanager.model.ProjectTag;
 import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,12 @@ public class TaskService {
     @Transactional
     public void deleteTask(Task task) {
         this.taskRepository.delete(task);
+    }
+    
+    
+    @Transactional
+    public Task addTagToTask(Task task, ProjectTag projectTag) {
+    	task.getTags().add(projectTag);
+        return this.taskRepository.save(task);
     }
 }

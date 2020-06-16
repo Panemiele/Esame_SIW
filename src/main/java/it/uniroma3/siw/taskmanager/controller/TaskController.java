@@ -25,119 +25,108 @@ import it.uniroma3.siw.taskmanager.service.UserService;
 
 @Controller
 public class TaskController {
-	
-    @Autowired
-    CredentialsService credentialsService;
-    
+
+	@Autowired
+	CredentialsService credentialsService;
+
 	@Autowired
 	ProjectService projectService;
-	
+
 	@Autowired
 	TaskService taskService;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	TaskValidator taskValidator;
-	
+
 	@Autowired
 	SessionData sessionData;
-	
-	
-	 @RequestMapping(value = { "/projects/tasks/{taskId}" }, method = RequestMethod.GET)
-	    public String task(Model model, @PathVariable Long taskId) {
-	    	Task task = taskService.getTask(taskId);
-	    	if(task == null)
-	    		return "redirect:/projects";
-	    	model.addAttribute("task", task);
-	    	return "task";
-	    }
-	 
-	    @RequestMapping(value = {"/projects/{projectId}/tasks/add"}, method = RequestMethod.GET)
-	    public String createTaskForm(Model model, @PathVariable Long projectId) {
-	    	User loggedUser = this.sessionData.getLoggedUser();
-	    	model.addAttribute("loggedUser", loggedUser);
-	    	model.addAttribute("taskForm", new Task());
-	    	model.addAttribute("projectId", projectId);
-	    	return "addTask";
-	    }
-	    
-	    
-	    @RequestMapping(value = {"/projects/{projectId}/tasks/add"}, method = RequestMethod.POST)
-	    public String createTask(@Valid @ModelAttribute("taskForm")
-	    							Task task,
-	    							@PathVariable Long projectId,
-	     							BindingResult taskBindingResult,
-	    							Model model) {
-	    	User loggedUser = this.sessionData.getLoggedUser();
-	    	Project currentProject = projectService.getProject(projectId);
-	    	taskValidator.validate(task, taskBindingResult);
-	    	if(!taskBindingResult.hasErrors()) {
-	    		currentProject.addTask(task);
-	    		task.setProject(currentProject);
-	    		this.taskService.saveTask(task);
-	    		return "redirect:/projects/tasks/" + task.getId();
-	    	}
-	    	model.addAttribute("loggedUser", loggedUser);
-	    	return "addTask";
-	    }
-	    
-	    @RequestMapping(value = {"/tasks/update/{taskId}"}, method = RequestMethod.GET)
-	    public String updateTaskForm(@PathVariable Long  taskId,Model model) {
-	    	User loggedUser = this.sessionData.getLoggedUser();
-	    	Task task = taskService.getTask(taskId);
-	    	if(loggedUser.getId() == task.getProject().getOwner().getId()) 
-	    	{
-	    	model.addAttribute("taskForm", task);
-	    	return "updateTask";
-	    	}
-	    	else return  "noPermission";
-	    }
-	    @RequestMapping(value = {"/tasks/update/{taskId}"}, method = RequestMethod.POST)
-	    public String updateTask(@PathVariable Long taskId,
-	    							@Valid @ModelAttribute("taskForm")
-									Task task,
-									BindingResult taskBindingResult,Model model) {
 
-	        
-	    	taskValidator.validate(task, taskBindingResult);
-	    	if(!taskBindingResult.hasErrors()) {
-	    		Task taskToUpdate = this.taskService.getTask(taskId);
-	    		taskToUpdate.setDescription(task.getDescription());
-	    		taskToUpdate.setName(task.getName());
-	    		this.taskService.saveTask(taskToUpdate);
-	    		return "redirect:/projects";
-	    	}
-			return "redirect:/projects/update/" + taskId;
+	@RequestMapping(value = { "/projects/tasks/{taskId}" }, method = RequestMethod.GET)
+	public String task(Model model, @PathVariable Long taskId) {
+		Task task = this.taskService.getTask(taskId);
+		if (task == null)
+			return "redirect:/projects";
+		model.addAttribute("task", task);
+		return "task";
+	}
 
-	    }
-	    
-	    @RequestMapping(value = {"/tasks/assignuser/{taskId}"}, method = RequestMethod.GET)
-	    public String assignTaskForm(@PathVariable Long taskId,Model model) {
-	    	
-	    	model.addAttribute("taskid", taskId);
-	    	model.addAttribute("username", new String());
-	    	
-	    	return "assignTask";
-	    }
-	    
-	    @RequestMapping(value = {"/tasks/assignuser/{taskId}"}, method = RequestMethod.POST)
-	    public String assignTask(@PathVariable Long taskId,
-	    						@Valid @ModelAttribute("username") String username, 
-	    							BindingResult usernameBindingResult,
-	    							Model model) {
-	    	Task task = taskService.getTask(taskId);
-	    	 List<User> members = task.getProject().getMembers();
-	    	 User user = credentialsService.getCredentials(username).getUser();
-	    	if( members.contains(user)) {
-	    		task.setAssignedTo(user);
-	    		taskService.saveTask(task);
-	    		return "MyOwnedProjects";
-	    		
-	    	}
-	    		
-	    	
-	    	return "MyOwnedProjects";
-	    }
+	@RequestMapping(value = { "/projects/{projectId}/tasks/add" }, method = RequestMethod.GET)
+	public String createTaskForm(Model model, @PathVariable Long projectId) {
+		User loggedUser = this.sessionData.getLoggedUser();
+		model.addAttribute("loggedUser", loggedUser);
+		model.addAttribute("taskForm", new Task());
+		model.addAttribute("projectId", projectId);
+		return "addTask";
+	}
+
+	@RequestMapping(value = { "/projects/{projectId}/tasks/add" }, method = RequestMethod.POST)
+	public String createTask(@Valid @ModelAttribute("taskForm") Task task, @PathVariable Long projectId,
+			BindingResult taskBindingResult, Model model) {
+		User loggedUser = this.sessionData.getLoggedUser();
+		Project currentProject = projectService.getProject(projectId);
+		taskValidator.validate(task, taskBindingResult);
+		if (!taskBindingResult.hasErrors()) {
+			currentProject.addTask(task);
+			task.setProject(currentProject);
+			this.taskService.saveTask(task);
+			return "redirect:/projects/tasks/" + task.getId();
+		}
+		model.addAttribute("loggedUser", loggedUser);
+		return "addTask";
+	}
+
+	@RequestMapping(value = { "/tasks/update/{taskId}" }, method = RequestMethod.GET)
+	public String updateTaskForm(@PathVariable Long taskId, Model model) {
+		User loggedUser = this.sessionData.getLoggedUser();
+		Task task = taskService.getTask(taskId);
+		if (loggedUser.getId() == task.getProject().getOwner().getId()) {
+			model.addAttribute("taskForm", task);
+			return "updateTask";
+		} else
+			return "noPermission";
+	}
+
+	@RequestMapping(value = { "/tasks/update/{taskId}" }, method = RequestMethod.POST)
+	public String updateTask(@PathVariable Long taskId, @Valid @ModelAttribute("taskForm") Task task,
+			BindingResult taskBindingResult, Model model) {
+
+		taskValidator.validate(task, taskBindingResult);
+		if (!taskBindingResult.hasErrors()) {
+			Task taskToUpdate = this.taskService.getTask(taskId);
+			taskToUpdate.setDescription(task.getDescription());
+			taskToUpdate.setName(task.getName());
+			this.taskService.saveTask(taskToUpdate);
+			return "redirect:/projects";
+		}
+		return "redirect:/projects/update/" + taskId;
+
+	}
+
+	@RequestMapping(value = { "/tasks/assignuser/{taskId}" }, method = RequestMethod.GET)
+	public String assignTaskForm(@PathVariable Long taskId, Model model) {
+
+		model.addAttribute("taskid", taskId);
+		model.addAttribute("username", new String());
+
+		return "assignTask";
+	}
+
+	@RequestMapping(value = { "/tasks/assignuser/{taskId}/addTag" }, method = RequestMethod.POST)
+	public String assignTask(@PathVariable Long taskId, @Valid @ModelAttribute("username") String username,
+			BindingResult usernameBindingResult, Model model) {
+		Task task = taskService.getTask(taskId);
+		List<User> members = task.getProject().getMembers();
+		User user = credentialsService.getCredentials(username).getUser();
+		if (members.contains(user)) {
+			task.setAssignedTo(user);
+			taskService.saveTask(task);
+			return "MyOwnedProjects";
+
+		}
+
+		return "MyOwnedProjects";
+	}
 }
