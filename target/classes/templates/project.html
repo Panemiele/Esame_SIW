@@ -62,7 +62,7 @@
 							th:text="${task.name}"></a></td>
 						<td th:text="${task.description}"></td>
 						<td th:text=${task.creationTimestamp}></td>
-						<td th:text=${task.assignedTo.firstName}></td>
+						<td th:text=${task.assignedTo?.firstName}></td>
 
 						<td><a th:href="'/tasks/assignuser/' + ${task.id}">Assign
 								User </a>
