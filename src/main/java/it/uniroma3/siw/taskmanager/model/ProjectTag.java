@@ -4,13 +4,15 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ProjectTag {
-
+	
 	/**
 	 * Unique identifier for this ProjectTag
 	 */
@@ -32,9 +34,15 @@ public class ProjectTag {
 
 	@Column
 	private String color;
+	
+	
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Project project;
+
 
 	public ProjectTag() {
-	};
+	}
+	
 	 public ProjectTag(String name, String description, String color) {
 	        this();
 	        this.name = name;

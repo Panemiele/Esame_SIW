@@ -39,7 +39,7 @@ public class TaskController {
 	
 	
 	 @RequestMapping(value = { "/projects/tasks/{taskId}" }, method = RequestMethod.GET)
-	    public String project(Model model, @PathVariable Long taskId) {
+	    public String task(Model model, @PathVariable Long taskId) {
 	    	Task task = taskService.getTask(taskId);
 	    	if(task == null)
 	    		return "redirect:/projects";
@@ -58,7 +58,7 @@ public class TaskController {
 	    
 	    
 	    @RequestMapping(value = {"/projects/{projectId}/tasks/add"}, method = RequestMethod.POST)
-	    public String createProject(@Valid @ModelAttribute("taskForm")
+	    public String createTask(@Valid @ModelAttribute("taskForm")
 	    							Task task,
 	    							@PathVariable Long projectId,
 	     							BindingResult taskBindingResult,
@@ -77,7 +77,7 @@ public class TaskController {
 	    }
 	    
 	    @RequestMapping(value = {"/tasks/update/{taskId}"}, method = RequestMethod.GET)
-	    public String updateProjectForm(@PathVariable Long  taskId,Model model) {
+	    public String updateTaskForm(@PathVariable Long  taskId,Model model) {
 	    	User loggedUser = this.sessionData.getLoggedUser();
 	    	Task task = taskService.getTask(taskId);
 	    	if(loggedUser.getId() == task.getProject().getOwner().getId()) 
@@ -88,7 +88,7 @@ public class TaskController {
 	    	else return  "noPermission";
 	    }
 	    @RequestMapping(value = {"/tasks/update/{taskId}"}, method = RequestMethod.POST)
-	    public String updateProject(@PathVariable Long taskId,
+	    public String updateTask(@PathVariable Long taskId,
 	    							@Valid @ModelAttribute("taskForm")
 									Task task,
 									BindingResult taskBindingResult,Model model) {

@@ -38,6 +38,23 @@
 			<a th:href="'/tasks/update/' + ${task.id}">Update Information</a>					
 		</li>
 	</ul>
+	<h3>Tags:</h3>
+	<div th:if="${project.tags.size() > 0}">
+            <table>
+                <tr>
+                    <th style="padding: right:20px">Tag name</th>
+                    <th>Description</th>
+                </tr>
+                <tr th:each="tag : ${project.tags}" >
+                    <td th:text="${tag.name}">...</td>
+                    <td th:text="${tag.description }">...</td>
+                </tr>
+            </table>
+        </div>
+        <div th:unless="${project.tags.size() > 0}">No tag to show</div>
+		<h4>
+			<a th:href="'/project/' + ${project.id} + '/addTag'">Add Tag</a>
+		</h4>
 		<h4>
 			<a href="/projects">My Projects</a>
 		</h4>

@@ -3,15 +3,14 @@ package it.uniroma3.siw.taskmanager.controller.validation;
 
 import org.springframework.validation.Validator;
 
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
-import it.uniroma3.siw.taskmanager.model.Project;
-import it.uniroma3.siw.taskmanager.model.User;
+import it.uniroma3.siw.taskmanager.model.ProjectTag;
 
 @Component
-public class ProjectValidator implements Validator{
-
+public class ProjectTagValidator  implements Validator{
 	final Integer MAX_NAME_LENGTH = 100;
 	final Integer MIN_NAME_LENGTH = 2;
 	final Integer MAX_DESCRIPTION_LENGTH = 1000;
@@ -19,10 +18,9 @@ public class ProjectValidator implements Validator{
 	
     @Override
     public void validate(Object o, Errors errors) {
-    	Project project = (Project) o;
-    	String name = project.getName().trim();
-    	String description = project.getDescription().trim();
-
+    	ProjectTag projectTag = (ProjectTag) o;
+    	String name = projectTag.getName().trim();
+    	String description = projectTag.getDescription().trim();
 
         if (name.isBlank())
             errors.rejectValue("name", "required");
@@ -30,23 +28,13 @@ public class ProjectValidator implements Validator{
             errors.rejectValue("name", "size");
         
         if (description.isBlank())
-            errors.rejectValue("password", "required");
+            errors.rejectValue("description", "required");
         else if (description.length() > MAX_DESCRIPTION_LENGTH)
             errors.rejectValue("description", "size");
-        
-
-
-    }
-    
-    public void validateMember(User member, Project project, Errors errors) {
-        if(member.equals(project.getOwner()))
-            errors.rejectValue("userName", "isOwner");
-        if(project.getMembers().contains(member))
-            errors.rejectValue("userName", "duplicate");
     }
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Project.class.equals(clazz);
+		return ProjectTag.class.equals(clazz);
 	}
 }

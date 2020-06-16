@@ -2,6 +2,8 @@ package it.uniroma3.siw.taskmanager.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -61,13 +63,16 @@ public class Project {
     @JoinColumn(name="project_id")
     private List<Task> tasks;
     
-    
-    @OneToMany(fetch = FetchType.EAGER)
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
+    @JoinColumn(name="project_id")
     private List<ProjectTag> tags;		//lista dei tag del progetto
-	
+    
     public Project() {
         this.members = new ArrayList<>();
         this.tasks = new ArrayList<>();
+        this.tags = new ArrayList<>();
     }
 
     public Project(String name, String description) {
@@ -128,11 +133,25 @@ public class Project {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+    
     public void addTask(Task task) {
     	this.tasks.add(task);
     }
 
-    @Override
+    
+    public List<ProjectTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<ProjectTag> tags) {
+		this.tags = tags;
+	}
+	
+	public void addTag(ProjectTag tag) {
+		this.tags.add(tag);
+	}
+
+	@Override
     public String toString() {
 
         return "Project{" +

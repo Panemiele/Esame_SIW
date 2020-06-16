@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.taskmanager.model.ProjectTag;
-import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.repository.ProjectTagRepository;
 
 @Service
@@ -17,11 +16,11 @@ public class ProjectTagService {
 	protected ProjectTagRepository projectTagRepository;
 	
 	
-	   @Transactional
-	    public ProjectTag getProjectTag(long id) {
-	        Optional<ProjectTag> result = this.projectTagRepository.findById(id);
-	        return result.orElse(null);
-	    }
+    @Transactional
+    public ProjectTag getProjectTag(long id) {
+        Optional<ProjectTag> result = this.projectTagRepository.findById(id);
+        return result.orElse(null);
+    }
 	   
 	   
     /**

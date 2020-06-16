@@ -30,13 +30,9 @@ public class TaskValidator  implements Validator{
         else if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH)
             errors.rejectValue("name", "size");
         
-        if (description.isBlank())
-            errors.rejectValue("password", "required");
-        else if (description.length() > MAX_DESCRIPTION_LENGTH)
+        //NON è necessario inserire una descrizione
+        if (description.length() > MAX_DESCRIPTION_LENGTH)
             errors.rejectValue("description", "size");
-        
-
-
     }
 
 	@Override
