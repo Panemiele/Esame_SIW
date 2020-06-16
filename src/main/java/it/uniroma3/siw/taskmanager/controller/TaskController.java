@@ -123,18 +123,20 @@ public class TaskController {
 
 		if (c == null) {
 			credentialsBindingResult.rejectValue("userName", "notExists");
+			model.addAttribute("taskid", taskId);
 			return "assignTask";
 
 		}
-		Task task = taskService.getTask(taskId);
+		Task task = this.taskService.getTask(taskId);
 		List<User> members = task.getProject().getMembers();
 		User user = credentialsService.getCredentials(credentials.getUserName()).getUser();
 		if (members.contains(user)) {
 			task.setAssignedTo(user);
-			taskService.saveTask(task);
+			this.taskService.saveTask(task);
 			return "redirect:/projects";
 		} else {
 			credentialsBindingResult.rejectValue("userName", "notExistsShared");
+			model.addAttribute("taskid", taskId);
 			return "assignTask";
 		}
 	}
