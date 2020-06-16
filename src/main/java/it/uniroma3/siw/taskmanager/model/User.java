@@ -42,6 +42,8 @@ public class User {
                mappedBy = "owner")
     private List<Project> ownedProjects;
 
+    @OneToMany(mappedBy = "assignedTo")
+    private List<Task> assignedTasks;
     /**
      * The List of Projects visible by this User
      */
