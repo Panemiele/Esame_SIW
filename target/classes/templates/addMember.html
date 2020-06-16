@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
-<head th:replace="/fragments/base.html::head(title='Taskmanager - shared with')">
+<head th:replace="/fragments/base.html::head(title='Taskmanager - add member')">
 </head>
 <body>
     <div align="center">
@@ -19,12 +19,10 @@
                 <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
                     th:style="'color:red'"></td>
             </tr>
-            <tr>
-                <td><button type="submit">Add member</button></td>
-            </tr>
         </table>
+        <div style="padding-top:20px"><button type="submit">Add member</button></div>
         </form>
-        <a href="/home">Home</a>
+        <div style="padding-top:20px"><a href="/home" class="btn btn-primary">Home</a></div>
     </div>
 </body>
 </html>

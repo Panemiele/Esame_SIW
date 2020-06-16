@@ -2,9 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>TaskManager</title>
+<head th:replace="fragments/base.html::head(title='Task Manager - allUsers')">
 </head>
 <body>
 	<h1>All users:</h1>
@@ -32,7 +30,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<a href="/home">Home</a>
+		<a href="/home" class="btn btn-primary">Home</a>
 	</div>
 </body>
 </html>

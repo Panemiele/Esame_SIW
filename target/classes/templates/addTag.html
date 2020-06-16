@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org">
-<head
-	th:replace="/fragments/base.html::head(title='Taskmanager - shared with')">
+<head th:replace="/fragments/base.html::head(title='Taskmanager - addTag')">
 </head>
 <body>
 	<div align="center">
@@ -38,9 +37,10 @@
 						class="dropdown-item">Something else here</a>
 				</div>
 			</div-->
-			<button type="submit">Confirm</button>
+			<div style="padding-top:20px"><button type="submit">Confirm</button></div>
 		</form>
-		<a th:href="'/projects/' + ${projectId}">Home</a>
+		<div style="padding-top:20px"><a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back</a></div>
+		<div style="padding-top:20px"><a href="/home" class="btn btn-primary">Home</a></div>
 	</div>
 </body>
 </html>

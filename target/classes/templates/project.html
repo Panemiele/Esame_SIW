@@ -1,69 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>TaskManager</title>
+<head
+	th:replace="fragments/base.html::head(title='Task Manager - project Num:' + ${project.id})">
 </head>
 <body>
-	<h1 th:text="${project.name}"></h1>
-	<h4 th:text="${project.description}" style="color:gray"></h4>
-	<h4 th:text="${project.date}" style="color:gray"></h4>
-	
-	
-<div th:if="${members.size() > 0}">
-            <h3>Shared with:</h3>
-            <table>
-                <tr>
-                    <th style="padding: right:20px">First Name</th>
-                    <th>Last Name</th>
-                </tr>
-                <tr th:each="member : ${members}" >
-                    <td th:text="${member.firstName}">...</td>
-                    <td th:text="${member.lastName}">...</td>
-                </tr>
-            </table>
-        </div>
-        <div th:unless="${members.size() > 0}">Project not shared with
-            anyone</div>
-        <h3>
-            <a th:href="'/project/share/' + ${project.id}">Share</a>
-        </h3>
-	<h3>Tasks:</h3>
-	<ul>
-		<li th:each="task : ${project.tasks}">
-			<div th:text="${task.name}" style="color:black"></div>
-			<div th:text="${task.description}" style="color:gray"></div>
-			<div th:text="${task.creationTimestamp}" style="color:green"></div>	
-			<a th:href="'/tasks/update/' + ${task.id}">Update Information</a>					
-		</li>
-	</ul>
-	<h3>Tags:</h3>
-	<div th:if="${project.tags.size() > 0}">
-            <table>
-                <tr>
-                    <th style="padding: right:20px">Tag name</th>
-                    <th>Description</th>
-                </tr>
-                <tr th:each="tag : ${project.tags}" >
-                    <td th:text="${tag.name}">...</td>
-                    <td th:text="${tag.description }">...</td>
-                </tr>
-            </table>
-        </div>
-        <div th:unless="${project.tags.size() > 0}">No tag to show</div>
-		<h4>
+	<div align="center">
+		<h1 th:text="${project.name}"></h1>
+		<h4 th:text="${project.description}" style="color: gray"></h4>
+		<h4 th:text="${project.date}" style="color: gray"></h4>
+
+
+
+		<!--------------------------->
+		<!-- CONDIVISIONE PROGETTO -->
+		<!--------------------------->
+		
+		<!--LISTA CONDIVISIONE-->
+		<div th:if="${members.size() > 0}">
+			<h3>Shared with:</h3>
+			<table>
+				<tr>
+					<th style="padding: right:20px">First Name</th>
+					<th>Last Name</th>
+				</tr>
+				<tr th:each="member : ${members}">
+					<td th:text="${member.firstName}">...</td>
+					<td th:text="${member.lastName}">...</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div th:unless="${members.size() > 0}">Project not shared with
+			anyone</div>
+			
+		<!-- AGGIUNGERE NUOVO MEMBRO -->
+		<h3 style="padding-top: 30px">
+			<a th:href="'/project/share/' + ${project.id}">Share</a>
+		</h3>
+		
+		
+		
+		
+		
+		<!----------------------------->
+		<!-- LISTA TASK DEL PROGETTO -->
+		<!----------------------------->
+		<h3 style="padding-top: 30px">Tasks:</h3>
+		<ul>
+			<li th:each="task : ${project.tasks}">
+				<div th:text="${task.name}" style="color: black"></div>
+				<div th:text="${task.description}" style="color: gray"></div>
+				<div th:text="${task.creationTimestamp}" style="color: green"></div>
+				<a th:href="'/tasks/update/' + ${task.id}">Update Information</a>
+			</li>
+		</ul>
+		
+		
+		
+		
+		<!----------------------------->
+		<!-- LISTA TAGS DEL PROGETTO -->
+		<!----------------------------->
+		<h3 style="padding-top: 30px">Tags:</h3>
+		<div th:if="${project.tags.size() > 0}">
+			<table>
+				<tr>
+					<th style="padding: right:20px">Tag name</th>
+					<th>Description</th>
+				</tr>
+				<tr th:each="tag : ${project.tags}">
+					<td><a th:href="'/home'" th:text="${tag.name}">...</a></td>
+					<td th:text="${tag.description }">...</td>
+				</tr>
+			</table>
+		</div>
+		<div th:unless="${project.tags.size() > 0}">No tag to show</div>
+		
+		<!------------------------------>
+		<!-- AGGIUNGI TAG AL PROGETTO -->
+		<!------------------------------>
+		<h4 style="padding-top: 30px">
 			<a th:href="'/project/' + ${project.id} + '/addTag'">Add Tag</a>
 		</h4>
+		
+		
+		
+		
+		
+		<!--------------->
+		<!-- LINK VARI -->
+		<!--------------->
 		<h4>
 			<a href="/projects">My Projects</a>
 		</h4>
+		
+		
+		
 		<h4>
-			<a th:href="'/projects/' + ${project.id} + '/tasks/add'"
-						>Create Task</a>
+			<a th:href="'/projects/' + ${project.id} + '/tasks/add'">Create
+				Task</a>
 		</h4>
-				<h4>
-			<a href="/home">Home</a>
+		
+		
+		
+		<h4>
+			<a href="/home" class="btn btn-primary">Home</a>
 		</h4>
+		
+		
+		
+	</div>
 </body>
 </html>

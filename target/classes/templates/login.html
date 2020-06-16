@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
-<head th:replace="/fragments/base.html::head(title='Task Manager ' + ${username}), wallpaper=''">
+<head th:replace="/fragments/base.html::head(title='Task Manager - ' + ${username})">
 </head>
 <body>
 <form th:action="@{/login}" method="post">

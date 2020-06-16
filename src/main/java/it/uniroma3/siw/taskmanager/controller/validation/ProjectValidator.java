@@ -49,4 +49,5 @@ public class ProjectValidator implements Validator{
 	public boolean supports(Class<?> clazz) {
 		return Project.class.equals(clazz);
 	}
+	
 }
