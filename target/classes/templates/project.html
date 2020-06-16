@@ -47,15 +47,26 @@
 		<!-- LISTA TASK DEL PROGETTO -->
 		<!----------------------------->
 		<h3 style="padding-top: 30px">Tasks:</h3>
-		<ul>
-			<li th:each="task : ${project.tasks}">
-				<div th:text="${task.name}" style="color: black"></div>
-				<div th:text="${task.description}" style="color: gray"></div>
-				<div th:text="${task.creationTimestamp}" style="color: green"></div>
-				<a th:href="'/tasks/update/' + ${task.id}">Update Information</a>
-			</li>
-		</ul>
-		
+		<div th:if="${project.tasks.size() > 0}" align="center">
+	        <table>
+	            <tr>
+	                <th>name</th>
+	                <th>description</th>
+	                <th>creation date</th>
+	            </tr>
+	            <tbody>
+	                <tr th:each="task : ${project.tasks}">
+	                    <td th:text="${task.name}"></td>
+	                    <td th:text="${task.description}"></td>
+	                    <td th:text=${task.creationTimestamp}></td>
+	                    <td><a th:href="'/tasks/update/' + ${task.id}">Update Information</a>
+	                    </td>
+	                </tr>
+	            </tbody>
+	            <tfoot>
+	            </tfoot>
+	        </table>
+	    </div>
 		
 		
 		

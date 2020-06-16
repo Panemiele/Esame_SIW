@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org">
-<head th:replace="fragments/base.html::head(title='Task Manager - task')">
+<head
+	th:replace="fragments/base.html::head(title='Task Manager - task')">
 </head>
 <body>
+	<div align="center">
+		<table>
+			<tr>
+				<td>Task name:</td>
+				<td th:text="${task.name}"></td>
+			</tr>
+			<tr>
+				<td>Task description:</td>
+				<td th:text="${task.description}" style="color: gray"></td>
+			</tr>
+			<tr>
+				<td>Task Creation Date:</td>
+				<td th:text="${task.creationTimestamp}" style="color: green"></td>
+			</tr>
 
-<table>
-        <tr>
-        	<td>Task name: </td>
-			<td th:text="${task.name}"></td>	
-		</tr>
-		<tr>
-        	<td>Task description: </td>
-			<td th:text="${task.description}" style="color:gray"></td>	
-        	<td>Task Creation Date: </td>
-			<td th:text="${task.creationTimestamp}" style="color:green"></td>	
-		</tr>
-		
 		</table>
 		<h4>
 			<a href="/projects">My Projects</a>
@@ -24,6 +27,7 @@
 
 		<h4>
 			<a href="/home" class="btn btn-primary">Home</a>
-		</h4>	
+		</h4>
+	</div>
 </body>
 </html>

@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div align="center">
-		<h1>Register new task:</h1>
+		<h1>Update task:</h1>
 		<form id="registerTaskForm"
 			th:action="@{'/tasks/update/' + ${taskId}}" th:object="${taskForm}"
 			method="POST">
@@ -28,7 +28,7 @@
 			</table>
 			<button type="submit">Update Task</button>
 		</form>
-		<a href="/home" class="btn btn-primary">Home</a>
+		<div><a href="/home" class="btn btn-primary">Home</a></div>
 	</div>
 
 

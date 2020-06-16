@@ -32,12 +32,8 @@
 		            <td><input id="lastNameInput" type="text" th:field="${userForm.lastName}" placeholder="LAST NAME" required/></td>
 		            <td th:if="${#fields.hasErrors('userForm.lastName')}" th:errors="${userForm.lastName}" th:style="'color:red'"></td>
 		        </tr>
-		        <tr>
-		            <td style="padding-top: 20px;">
-		                <button type="submit">Register</button>
-		            </td>
-		        </tr>
 		    </table>
+		  	<div style="padding-top: 20px"><button type="submit">Register</button></div>
 		</form>
 	</div>
 </body>

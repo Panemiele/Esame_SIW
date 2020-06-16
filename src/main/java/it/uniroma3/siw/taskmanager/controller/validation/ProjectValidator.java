@@ -21,16 +21,14 @@ public class ProjectValidator implements Validator{
     public void validate(Object o, Errors errors) {
     	Project project = (Project) o;
     	String name = project.getName().trim();
-    	String description = project.getDescription().trim();
+    	String description = project.getDescription();
 
 
         if (name.isBlank())
             errors.rejectValue("name", "required");
         else if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH)
             errors.rejectValue("name", "size");
-        
-        if (description.isBlank())
-            errors.rejectValue("password", "required");
+
         else if (description.length() > MAX_DESCRIPTION_LENGTH)
             errors.rejectValue("description", "size");
         
