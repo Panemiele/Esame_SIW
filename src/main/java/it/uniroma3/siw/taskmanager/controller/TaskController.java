@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.uniroma3.siw.taskmanager.controller.session.SessionData;
 import it.uniroma3.siw.taskmanager.controller.validation.TaskValidator;
+import it.uniroma3.siw.taskmanager.model.Credentials;
 import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.model.User;
@@ -109,24 +110,32 @@ public class TaskController {
 	public String assignTaskForm(@PathVariable Long taskId, Model model) {
 
 		model.addAttribute("taskid", taskId);
-		model.addAttribute("username", new String());
+		model.addAttribute("memberForm", new Credentials());
 
 		return "assignTask";
 	}
 
-	@RequestMapping(value = { "/tasks/assignuser/{taskId}/addTag" }, method = RequestMethod.POST)
-	public String assignTask(@PathVariable Long taskId, @Valid @ModelAttribute("username") String username,
-			BindingResult usernameBindingResult, Model model) {
+
+	@RequestMapping(value = { "/tasks/assignuser/{taskId}" }, method = RequestMethod.POST)
+	public String assignTask(@PathVariable Long taskId, @Valid @ModelAttribute("memberForm") Credentials credentials,
+			BindingResult credentialsBindingResult, Model model) {
+		Credentials c = this.credentialsService.getCredentials(credentials.getUserName());
+
+		if (c == null) {
+			credentialsBindingResult.rejectValue("userName", "notExists");
+			return "assignTask";
+
+		}
 		Task task = taskService.getTask(taskId);
 		List<User> members = task.getProject().getMembers();
-		User user = credentialsService.getCredentials(username).getUser();
+		User user = credentialsService.getCredentials(credentials.getUserName()).getUser();
 		if (members.contains(user)) {
 			task.setAssignedTo(user);
 			taskService.saveTask(task);
-			return "MyOwnedProjects";
-
+			return "redirect:/projects";
+		} else {
+			credentialsBindingResult.rejectValue("userName", "notExistsShared");
+			return "assignTask";
 		}
-
-		return "MyOwnedProjects";
 	}
 }
