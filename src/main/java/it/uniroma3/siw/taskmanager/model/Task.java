@@ -43,6 +43,9 @@ public class Task {
     /**
      * Boolean flag specifying whether this Task is completed or not
      */
+    
+    
+    
     @Column(nullable = false)
     private boolean completed;
 

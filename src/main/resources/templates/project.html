@@ -56,7 +56,7 @@
 	            </tr>
 	            <tbody>
 	                <tr th:each="task : ${project.tasks}">
-	                    <td th:text="${task.name}"></td>
+	                    <td><a th:href="'/projects/tasks/' + ${task.id}" th:text="${task.name}"></a></td>
 	                    <td th:text="${task.description}"></td>
 	                    <td th:text=${task.creationTimestamp}></td>
 	                    <td><a th:href="'/tasks/update/' + ${task.id}">Update Information</a>
