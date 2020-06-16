@@ -1,5 +1,7 @@
 package it.uniroma3.siw.taskmanager.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,17 @@ import it.uniroma3.siw.taskmanager.controller.validation.TaskValidator;
 import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.model.User;
+import it.uniroma3.siw.taskmanager.service.CredentialsService;
 import it.uniroma3.siw.taskmanager.service.ProjectService;
 import it.uniroma3.siw.taskmanager.service.TaskService;
 import it.uniroma3.siw.taskmanager.service.UserService;
 
 @Controller
 public class TaskController {
+	
+    @Autowired
+    CredentialsService credentialsService;
+    
 	@Autowired
 	ProjectService projectService;
 	
@@ -104,5 +111,33 @@ public class TaskController {
 	    	}
 			return "redirect:/projects/update/" + taskId;
 
+	    }
+	    
+	    @RequestMapping(value = {"/tasks/assignuser/{taskId}"}, method = RequestMethod.GET)
+	    public String assignTaskForm(@PathVariable Long taskId,Model model) {
+	    	
+	    	model.addAttribute("taskid", taskId);
+	    	model.addAttribute("username", new String());
+	    	
+	    	return "assignTask";
+	    }
+	    
+	    @RequestMapping(value = {"/tasks/assignuser/{taskId}"}, method = RequestMethod.POST)
+	    public String assignTask(@PathVariable Long taskId,
+	    						@Valid @ModelAttribute("username") String username, 
+	    							BindingResult usernameBindingResult,
+	    							Model model) {
+	    	Task task = taskService.getTask(taskId);
+	    	 List<User> members = task.getProject().getMembers();
+	    	 User user = credentialsService.getCredentials(username).getUser();
+	    	if( members.contains(user)) {
+	    		task.setAssignedTo(user);
+	    		taskService.saveTask(task);
+	    		return "MyOwnedProjects";
+	    		
+	    	}
+	    		
+	    	
+	    	return "MyOwnedProjects";
 	    }
 }

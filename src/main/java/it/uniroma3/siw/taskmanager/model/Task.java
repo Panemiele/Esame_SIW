@@ -37,6 +37,9 @@ public class Task {
      */
     @ManyToOne(fetch = FetchType.EAGER)
     private Project project;
+    
+    @ManyToOne
+    private User assignedTo;
     /**
      * Boolean flag specifying whether this Task is completed or not
      */
@@ -161,5 +164,13 @@ public class Task {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public User getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(User assignedTo) {
+		this.assignedTo = assignedTo;
 	}
 }
