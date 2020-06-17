@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 public class Task {
 
-    /**
+	/**
      * Unique identifier for this Task
      */
     @Id
@@ -185,5 +185,11 @@ public class Task {
 
 	public void setAssignedTo(User assignedTo) {
 		this.assignedTo = assignedTo;
+	}
+	
+    @Override
+	public String toString() {
+		return "Task [name=" + name + ", project=" + project + ", assignedTo=" + assignedTo + ", completed=" + completed
+				+ "]";
 	}
 }

@@ -42,31 +42,37 @@ body {
 		<img th:insert="fragments/profileImage.html::proPict">
 
 
-		<div style="padding-top: 120px;">
+		<div style="padding-top: 140px;">
 			<div class="login-box-style" align="center">
 				<div
-					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';">
+					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';
+					padding-bottom:7px">
 					<b> <a href="/projects">My Projects</a>
 					</b>
 				</div>
-				<br>
 				<div
-					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';">
+					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';
+					padding-bottom:7px">
 					<a href="/projects/sharedProjects">Shared with me</a>
 				</div>
-				<br>
 				<div
-					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';">
+					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';
+					padding-bottom:7px">
 					<a href="/projects/add">Create new Project</a>
 				</div>
-				<br>
 				<div
-					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';">
+					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';
+					padding-bottom:7px">
 					<a href="/users/me">Profile</a>
 				</div>
-				<br>
+				<div th:if="${userCredentials.role == 'ADMIN'}"
+					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';
+					padding-bottom:7px">
+					<a href="/admin">Admin Home</a>
+				</div>
 				<div
-					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';">
+					style="font-family: Gotham, Helvetica Neue, Helvetica, Arial, ' sans-serif';
+					padding-bottom:7px">
 					<i> <a href="/logout">Logout</a>
 					</i>
 				</div>
