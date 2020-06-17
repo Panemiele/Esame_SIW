@@ -89,7 +89,8 @@ public class TaskController {
 	@RequestMapping(value = { "/tasks/remove/{taskId}" }, method = RequestMethod.GET)
 	public String deleteTask(@PathVariable Long taskId, Model model) {
 		Task taskToDelete = this.taskService.getTask(taskId);
-		this.taskService.deleteTask(taskToDelete);
+		
+		this.taskService.deleteTask(taskToDelete,taskToDelete.getProject());
 		return "redirect:/projects";
 
 	}

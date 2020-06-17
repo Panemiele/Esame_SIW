@@ -1,5 +1,6 @@
 package it.uniroma3.siw.taskmanager.service;
 
+import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.ProjectTag;
 import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.repository.TaskRepository;
@@ -56,7 +57,8 @@ public class TaskService {
      * @param task the Task to delete from the DB
      */
     @Transactional
-    public void deleteTask(Task task) {
+    public void deleteTask(Task task, Project p) {
+    	p.getTasks().remove(task);
         this.taskRepository.delete(task);
     }
     
