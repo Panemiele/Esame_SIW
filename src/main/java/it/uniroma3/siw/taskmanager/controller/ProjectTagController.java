@@ -1,5 +1,7 @@
 package it.uniroma3.siw.taskmanager.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,5 +123,23 @@ public class ProjectTagController {
 			}
 		}
 		return "addTagToTask";
+	}
+	
+	@RequestMapping(value = { "/project/{projectid}/deleteTag/{tagid}" }, method = RequestMethod.GET)
+	public String deletaTag( @PathVariable Long projectid ,@PathVariable Long tagid) {
+		
+		ProjectTag tag= this.projectTagService.getProjectTag(tagid);
+		
+		List<Task> tasks = tag.getTasks();
+
+		for (Task task : tasks) {
+		     task.getTags().remove(tag);
+		}
+		this.projectTagService.deleteProjectTag(tag);
+		
+		
+		
+		
+		return "redirect:/projects/" + projectid;
 	}
 }

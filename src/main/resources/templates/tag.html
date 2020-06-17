@@ -20,7 +20,7 @@
 				<td th:style="'background-color:' + ${tag.color}"></td>
 			</tr>
 		</table>
-		
+
 		<h3 style="padding-top: 30px">Tasks:</h3>
 		<div th:if="${tag.tasks.size() > 0}">
 			<table>
@@ -39,6 +39,9 @@
 		</div>
 		<div style="padding-top: 30px">
 			<a href="/home" class="btn btn-primary">Home</a>
+		</div>
+		<div style="padding-top: 30px">
+			<a th:href="'/project/' +${projectId} + '/deleteTag/' + ${tag.id}">Remove Tag</a>
 		</div>
 	</div>
 </body>
