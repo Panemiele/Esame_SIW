@@ -27,6 +27,9 @@
 			</tr>
 		</table>
 
+		<!----------------------------->
+		<!-- LISTA TAG DEL TASK -->
+		<!----------------------------->
 		<h3 style="padding-top: 30px">Tags:</h3>
 		<div th:if="${task.tags.size() > 0}">
 			<table>
@@ -43,6 +46,29 @@
 			</table>
 		</div>
 		<div th:unless="${task.tags.size() > 0}">No tag to show</div>
+
+
+
+		<!----------------------------->
+		<!-- LISTA COMMENTI DEL TASK -->
+		<!----------------------------->
+		<h4 style="padding-top: 30px">Comments:</h4>
+		<div th:if="${task.comments.size() > 0}">
+			<table>
+				<tr>
+					<th style="padding: right:20px">Commented By</th>
+					<th>Text</th>
+					<th>Date</th>
+
+				</tr>
+				<tr th:each="comment : ${task.comments}">
+					<td th:text="${comment.commentedBy}"></td>
+					<td th:text="${comment.name}"></td>
+					<td th:text="${#temporals.format(comment.date,'dd-MM-yyyy')}"></td>
+				</tr>
+			</table>
+		</div>
+		<div th:unless="${task.tags.size() > 0}">No Comment to show</div>
 
 		<h4 style="padding-top: 30px">
 			<a href="/projects" class="btn btn-primary">My Projects</a>

@@ -63,7 +63,7 @@ public class Task {
     @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<ProjectTag> tags;   //Lista di tag del task
     
-    @OneToMany
+    @OneToMany(mappedBy = "task")
     private List<Comment> comments;
 
     
@@ -185,5 +185,13 @@ public class Task {
 
 	public void setAssignedTo(User assignedTo) {
 		this.assignedTo = assignedTo;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 }

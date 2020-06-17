@@ -27,6 +27,9 @@ public class Comment {
 	 */
 	@Column(nullable = false, length = 100)
 	private String name;
+	
+	@Column(nullable= false)
+	private String commentedBy;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column
@@ -34,6 +37,9 @@ public class Comment {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User owner;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Task task;
 
 	public Comment() {
 	};
@@ -88,5 +94,21 @@ public class Comment {
 	@Override
 	public int hashCode() {
 		return Objects.hash(name) + Objects.hash(date);
+	}
+
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
+	public String getCommentedBy() {
+		return commentedBy;
+	}
+
+	public void setCommentedBy(String commentedBy) {
+		this.commentedBy = commentedBy;
 	}
 }

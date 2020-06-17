@@ -65,7 +65,7 @@
 						<td th:text="${task.assignedTo?.firstName}"></td>
 						<td th:if="${task.completed}">Yes</td>
 						<td th:unless="${task.completed}">No</td>
-						
+
 						<td><a th:href="'/tasks/update/' + ${task.id}">Update
 								task</a>
 						<td><a
@@ -74,6 +74,8 @@
 								tag</a></td>
 						<td><a th:href="'/tasks/assignuser/' + ${task.id}">Assign
 								User </a>
+						<td><a th:href="'/tasks/' + ${task.id} + '/comment'">Add Comment
+								 </a>
 					</tr>
 				</tbody>
 			</table>

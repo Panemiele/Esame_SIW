@@ -67,6 +67,7 @@ public class ProjectTagService {
     public ProjectTag addTaskToTag(ProjectTag projectTag, Task task) {
     	projectTag.getTasks().add(task);
         return this.projectTagRepository.save(projectTag);
+        
     }
     
     /**
