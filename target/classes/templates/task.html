@@ -33,7 +33,7 @@
 				<tr th:each="tag : ${task.tags}">
 					<td th:text="${tag.name}"></td>
 					<td th:text="${tag.description}"></td>
-					<td th:text="${tag.color}"></td>
+					<td th:style="'background-color:' + ${tag.color}"></td>
 				</tr>
 			</table>
 		</div>

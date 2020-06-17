@@ -30,23 +30,11 @@
 					<td th:if="${#fields.hasErrors('description')}"
 						th:errors="*{description}" th:style="'color:red'"></td>
 				</tr>
+				<tr>
+					<td><label for="tagColorInput">Tag Color</label></td>
+					<td><input type="color" name="color"/></td>
+				</tr>
 			</table>
-			
-			
-			<!-------------->
-			<!-- DROPDOWN -->
-			<!-------------->
-			<div class="dropdown">
-				<button class="btn btn-default dropdown-toggle" type="button"
-					id="dropdownmenu" data-toggle="dropdown">
-					color <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" aria-labelled-by="dropdownmenu">
-					<li><a href="#">prova1</a></li>
-					<li><a href="#">prova2</a></li>
-					<li><a href="#">prova3</a></li>
-				</ul>
-			</div>
 			
 			
 			

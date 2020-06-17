@@ -6,6 +6,8 @@ import it.uniroma3.siw.taskmanager.model.Credentials;
 import it.uniroma3.siw.taskmanager.model.User;
 import it.uniroma3.siw.taskmanager.repository.UserRepository;
 import it.uniroma3.siw.taskmanager.service.CredentialsService;
+import it.uniroma3.siw.taskmanager.service.ProjectService;
+import it.uniroma3.siw.taskmanager.service.UserService;
 
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class UserController {
 
     @Autowired
     UserValidator userValidator;
+    
+    @Autowired
+    UserService userService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -38,7 +43,8 @@ public class UserController {
     @Autowired
     CredentialsService credentialsService;
     
-
+    @Autowired
+    ProjectService projectService;
 
     /**
      * This method is called when a GET request is sent by the user to URL "/users/user_id".
@@ -102,7 +108,21 @@ public class UserController {
     	this.credentialsService.deleteCredentials(username);
     	return "redirect:/admin/users";
     }
+
+    @RequestMapping(value={"/admin/users/{userId}/projects"}, method = RequestMethod.GET)
+    public String allUserProjects(Model model, @PathVariable Long userId) {
+    	model.addAttribute("projectsList", this.userService.getUser(userId).getOwnedProjects());
+    	model.addAttribute("userId", userId);
+    	return "userOwnedProjects";
+    }
     
-
-
+    @RequestMapping(value={"/admin/users/{userId}/projects/{projectId}/remove"}, method = RequestMethod.GET)
+    public String deleteUserProject(Model model, @PathVariable Long userId,
+    								@PathVariable Long projectId) {
+    	model.addAttribute("userId", userId);
+    	model.addAttribute("projectId", projectId);
+    	this.projectService.deleteProject(this.projectService.getProject(projectId));
+    	return "userOwnedProjects";
+    }
+    
 }

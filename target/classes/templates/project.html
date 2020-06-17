@@ -54,14 +54,17 @@
 					<th>description</th>
 					<th>creation date</th>
 					<th>Assigned To</th>
+					<th>completed</th>
 				</tr>
 				<tbody>
 					<tr th:each="task : ${project.tasks}">
 						<td><a th:href="'/projects/tasks/' + ${task.id}"
 							th:text="${task.name}"></a></td>
 						<td th:text="${task.description}"></td>
-						<td th:text=${task.creationTimestamp}></td>
-						<td th:text=${task.assignedTo?.firstName}></td>
+						<td th:text="${task.creationTimestamp}"></td>
+						<td th:text="${task.assignedTo?.firstName}"></td>
+						<td th:text="${task.completed}"></td>
+						
 						<td><a th:href="'/tasks/update/' + ${task.id}">Update
 								task</a>
 						<td><a

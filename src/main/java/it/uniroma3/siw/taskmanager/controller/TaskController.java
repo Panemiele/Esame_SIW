@@ -93,12 +93,13 @@ public class TaskController {
 	@RequestMapping(value = { "/tasks/update/{taskId}" }, method = RequestMethod.POST)
 	public String updateTask(@PathVariable Long taskId, @Valid @ModelAttribute("taskForm") Task task,
 			BindingResult taskBindingResult, Model model) {
-
+		System.out.println("\n\n\n\nEcco il valore: " + task.isCompleted());
 		taskValidator.validate(task, taskBindingResult);
 		if (!taskBindingResult.hasErrors()) {
 			Task taskToUpdate = this.taskService.getTask(taskId);
 			taskToUpdate.setDescription(task.getDescription());
 			taskToUpdate.setName(task.getName());
+			taskToUpdate.setCompleted(task.isCompleted());
 			this.taskService.saveTask(taskToUpdate);
 			return "redirect:/projects";
 		}

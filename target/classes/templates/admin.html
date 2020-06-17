@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="https://www.thymeleaf.org">
-<head th:replace="fragments/base.html::head(title='Task Manager - admin Home')">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head
+	th:replace="fragments/base.html::head(title='Task Manager - admin Home')">
 </head>
 <body>
-<h1 th:text="'Welcome, admin ' + ${user.firstName} + '!'"></h1>
-<h4><a href="/admin/users">All users list</a></h4>
-
+	<div align="center">
+		<h1 th:text="'Welcome, admin ' + ${user.firstName} + '!'"></h1>
+		<h4>
+			<a href="/admin/users">All users list</a>
+		</h4>
+	</div>
 </body>
 </html>

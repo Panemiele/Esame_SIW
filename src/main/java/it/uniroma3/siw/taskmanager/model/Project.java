@@ -65,7 +65,7 @@ public class Project {
     
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name="project_id")
     private List<ProjectTag> tags;		//lista dei tag del progetto
     

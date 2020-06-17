@@ -25,6 +25,16 @@
 					<td th:if="${#fields.hasErrors('description')}"
 						th:errors="*{description}" th:style="'color:red'"></td>
 				</tr>
+				<tr>
+					<td><label for="taskCompletedCheck">Task completed</label></td>
+					<td>
+						<div class="form-check form-check-inline">
+							<input id="checkComplete" name="completed" th:field="*{completed}" type="checkbox">
+							<label for="checkComplete"></label>
+						</div>
+					</td>
+				</tr>
+				
 			</table>
 			<button type="submit">Update Task</button>
 		</form>

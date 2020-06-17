@@ -68,17 +68,13 @@ public class ProjectTagController {
 		this.projectTagValidator.validate(projectTag, projectTagBindingResult);
 		if (!projectTagBindingResult.hasErrors()) { // Se il projectTag è valido
 													// allora controlla che non sia duplicato
-			System.out.println("\n\n\n\nINIZIO CONTROLLO\n");
 			this.projectTagValidator.validateAddTagInProject(projectTag, project, projectTagBindingResult);
-			System.out.println("\n\n\n\nFINE CONTROLLO\n");
 			if (!projectTagBindingResult.hasErrors()) {
 				project.addTag(projectTag);
 				this.projectTagService.saveProjectTagWithProject(projectTag, project);
-				System.out.println("\n\n\n\nRestituisco redirect........\n");
 				return "redirect:/projects/" + projectId;
 			}
 		}
-		System.out.println("\n\n\n\nRestituisco addTag!!!!!\n");
 		return "addTag";
 	}
 	
