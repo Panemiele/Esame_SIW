@@ -62,6 +62,9 @@ public class Task {
     
     @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER)
     private List<ProjectTag> tags;   //Lista di tag del task
+    
+    @OneToMany
+    private List<Comment> comments;
 
     
     public Task() {}
