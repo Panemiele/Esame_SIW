@@ -30,7 +30,8 @@ public class UserService {
         Optional<User> result = this.userRepository.findById(id);
         return result.orElse(null);
     }
-
+    
+    
     /**
      * This method saves a User in the DB.
      * @param user the User to save into the DB
