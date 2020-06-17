@@ -63,7 +63,7 @@ public class Task {
     @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<ProjectTag> tags;   //Lista di tag del task
     
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
     
