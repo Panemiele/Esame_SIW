@@ -85,6 +85,14 @@ public class TaskController {
 		model.addAttribute("loggedUser", loggedUser);
 		return "addTask";
 	}
+	
+	@RequestMapping(value = { "/tasks/remove/{taskId}" }, method = RequestMethod.GET)
+	public String deleteTask(@PathVariable Long taskId, Model model) {
+		Task taskToDelete = this.taskService.getTask(taskId);
+		this.taskService.deleteTask(taskToDelete);
+		return "redirect:/projects";
+
+	}
 
 	@RequestMapping(value = { "/tasks/update/{taskId}" }, method = RequestMethod.GET)
 	public String updateTaskForm(@PathVariable Long taskId, Model model) {
