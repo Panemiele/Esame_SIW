@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ProjectTag {
-	
+
 	/**
 	 * Unique identifier for this ProjectTag
 	 */
@@ -106,6 +106,12 @@ public class ProjectTag {
 		this.color = color;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "ProjectTag [name=" + name + ", color=" + color + ", project=" + project + "]";
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

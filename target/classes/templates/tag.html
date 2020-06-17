@@ -5,10 +5,27 @@
 </head>
 <body>
 	<div align="center">
-		<div th:text="'Name: ' + ${tag.name}"></div>
-		<div th:text="'Description ' + ${tag.description}"></div>
-		<div style="padding-top:30px"><a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back</a></div>
-		<div style="padding-top:30px"><a href="/home" class="btn btn-primary">Home</a></div>
+		<h1 th:text="'tag: ' + ${tag.name}"></h1>
+		<table>
+			<tr>
+				<td>Tag name:</td>
+				<td th:text="${tag.name}"></td>
+			</tr>
+			<tr>
+				<td>Tag description:</td>
+				<td th:text="${tag.description}" style="color: gray"></td>
+			</tr>
+			<tr>
+				<td>Tag color:</td>
+				<td th:text="${tag.color}" th:style="'color: green; background-color:' + ${tag.color}"></td>
+			</tr>
+		</table>
+		<div style="padding-top: 30px">
+			<a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back</a>
+		</div>
+		<div style="padding-top: 30px">
+			<a href="/home" class="btn btn-primary">Home</a>
+		</div>
 	</div>
 </body>
 </html>

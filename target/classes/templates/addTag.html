@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org">
-<head th:replace="/fragments/base.html::head(title='Taskmanager - addTag')">
+<head
+	th:replace="/fragments/base.html::head(title='Taskmanager - addTag')">
 </head>
 <body>
 	<div align="center">
 		<h1>Add a tag to your project:</h1>
+		
+		
+		<!----------------->
+		<!-- INIZIO FORM -->
+		<!----------------->
 		<form id="projectTagForm"
 			th:action="@{'/project/' + ${projectId} + '/addTag'}"
 			th:object="${tagForm}" method="POST">
@@ -25,22 +31,39 @@
 						th:errors="*{description}" th:style="'color:red'"></td>
 				</tr>
 			</table>
-			<!-- MENU' A TENDINA PER LA SCELTA DEI COLORI
-			<div class="dropdown show">
-				<a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-					id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Dropdown link </a>
-
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item">Action</a> <a
-						class="dropdown-item">Another action</a> <a
-						class="dropdown-item">Something else here</a>
-				</div>
-			</div-->
-			<div style="padding-top:20px"><button type="submit">Confirm</button></div>
+			
+			
+			<!-------------->
+			<!-- DROPDOWN -->
+			<!-------------->
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button"
+					id="dropdownmenu" data-toggle="dropdown">
+					color <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelled-by="dropdownmenu">
+					<li><a href="#">prova1</a></li>
+					<li><a href="#">prova2</a></li>
+					<li><a href="#">prova3</a></li>
+				</ul>
+			</div>
+			
+			
+			
+			<div style="padding-top: 20px">
+				<button type="submit">Confirm</button>
+			</div>
 		</form>
-		<div style="padding-top:20px"><a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back</a></div>
-		<div style="padding-top:20px"><a href="/home" class="btn btn-primary">Home</a></div>
+		
+		
+		
+		
+		<div style="padding-top: 20px">
+			<a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back</a>
+		</div>
+		<div style="padding-top: 20px">
+			<a href="/home" class="btn btn-primary">Home</a>
+		</div>
 	</div>
 </body>
 </html>

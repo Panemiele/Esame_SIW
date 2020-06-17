@@ -24,15 +24,20 @@ public class ProjectTagController {
 
 	@Autowired
 	ProjectService projectService;
-	
+
 	@Autowired
 	ProjectTagService projectTagService;
-	
+
 	@Autowired
 	ProjectTagValidator projectTagValidator;
-	
+
 	@Autowired
 	TaskService taskService;
+
+	
+	
+	
+	
 	
 	
 	@RequestMapping(value = "/projects/{projectId}/tag/{tagId}", method = RequestMethod.GET)
@@ -44,50 +49,81 @@ public class ProjectTagController {
 	}
 	
 	
+	
+
+	
+	
+	
 	@RequestMapping(value = "/project/{projectId}/addTag", method = RequestMethod.GET)
 	public String addTagForm(@PathVariable Long projectId, Model model) {
 		model.addAttribute("tagForm", new ProjectTag());
 		return "addTag";
 	}
-	
+
 	
 	@RequestMapping(value = "/project/{projectId}/addTag", method = RequestMethod.POST)
-	public String addTag(@PathVariable Long projectId,
-						 @Valid @ModelAttribute ProjectTag projectTag,
-						 BindingResult projectTagBindingResult, Model model) {
+	public String addTag(@PathVariable Long projectId, @Valid @ModelAttribute("tagForm") ProjectTag projectTag,
+			BindingResult projectTagBindingResult, Model model) {
 		Project project = this.projectService.getProject(projectId);
 		this.projectTagValidator.validate(projectTag, projectTagBindingResult);
-		if(!projectTagBindingResult.hasErrors()) {
-			project.addTag(projectTag);
-			this.projectTagService.saveProjectTag(projectTag);
-			return "redirect:/projects/" + projectId;
+		if (!projectTagBindingResult.hasErrors()) { // Se il projectTag è valido
+													// allora controlla che non sia duplicato
+			System.out.println("\n\n\n\nINIZIO CONTROLLO\n");
+			this.projectTagValidator.validateAddTagInProject(projectTag, project, projectTagBindingResult);
+			System.out.println("\n\n\n\nFINE CONTROLLO\n");
+			if (!projectTagBindingResult.hasErrors()) {
+				project.addTag(projectTag);
+				this.projectTagService.saveProjectTagWithProject(projectTag, project);
+				System.out.println("\n\n\n\nRestituisco redirect........\n");
+				return "redirect:/projects/" + projectId;
+			}
 		}
+		System.out.println("\n\n\n\nRestituisco addTag!!!!!\n");
 		return "addTag";
 	}
 	
 	
+	
+	
+	
+	
+	
+
 	@RequestMapping(value = { "/projects/{projectId}/tasks/{taskId}/addTag" }, method = RequestMethod.GET)
-	public String addTagToTaskForm(@PathVariable Long projectId,
-								   @PathVariable Long taskId,
-								   Model model) {
+	public String addTagToTaskForm(@PathVariable Long projectId, @PathVariable Long taskId, Model model) {
 		model.addAttribute("tagForm", new ProjectTag());
-		return "addTag";
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("taskId", taskId);
+		return "addTagToTask";
 	}
-	
+
 	
 	@RequestMapping(value = { "/projects/{projectId}/tasks/{taskId}/addTag" }, method = RequestMethod.POST)
-	public String addTagToTask(@PathVariable Long projectId,
-							   @PathVariable Long taskId,
-							   @Valid @ModelAttribute ProjectTag projectTag,
-							   BindingResult projectTagBindingResult,
-							   Model model) {
+	public String addTagToTask(@PathVariable Long projectId, @PathVariable Long taskId,
+			@Valid @ModelAttribute("tagForm") ProjectTag projectTag, BindingResult projectTagBindingResult,
+			Model model) {
 		Task task = this.taskService.getTask(taskId);
-		this.projectTagValidator.validate(projectTag, projectTagBindingResult);
-		if(!projectTagBindingResult.hasErrors()) {
-			this.projectTagService.saveProjectTag(projectTag);
-			this.taskService.addTagToTask(task, projectTag);
-			return "redirect:/projects/" + projectId + "/tasks/" + taskId;
+		Project project = this.projectService.getProject(projectId);
+
+		// Risalgo al tag a partire dal nome (sono sicuro che non ci sono tag con lo
+		//									 (stesso nome all'interno di un project.)
+		ProjectTag tag = this.projectTagService.getProjectTagInProject(projectTag.getName(), project);
+		
+		if (!project.getTags().contains(tag)) { // se il progetto non contiene il tag
+			projectTagBindingResult.rejectValue("name", "notBelongTo");
 		}
-		return "addTag";
+		else {
+			this.projectTagValidator.validate(tag, projectTagBindingResult);
+			if (!projectTagBindingResult.hasErrors()) {// se il tag è valido
+														// allora verifica che non sia già nel task
+				this.projectTagValidator.validateAddTagInTask(tag, task, projectTagBindingResult);
+				if (!projectTagBindingResult.hasErrors()) {
+					this.taskService.addTagToTask(task, tag);
+					this.projectTagService.addTaskToTag(tag, task);
+					return "redirect:/projects/tasks/" + taskId;
+				}
+			}
+		}
+		return "addTagToTask";
 	}
 }

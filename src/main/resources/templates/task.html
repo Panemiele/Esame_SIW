@@ -28,8 +28,13 @@
 				<tr>
 					<th style="padding: right:20px">Tag name</th>
 					<th>Description</th>
+					<th>Color</th>
 				</tr>
-
+				<tr th:each="tag : ${task.tags}">
+					<td th:text="${tag.name}"></td>
+					<td th:text="${tag.description}"></td>
+					<td th:text="${tag.color}"></td>
+				</tr>
 			</table>
 		</div>
 		<div th:unless="${task.tags.size() > 0}">No tag to show</div>
