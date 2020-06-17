@@ -46,17 +46,16 @@ public class CommentController {
 	@Autowired
 	SessionData sessionData;
 
-	@RequestMapping(value = { "/projects/{projectId}/tasks/{taskId}/comment" }, method = RequestMethod.GET)
-	public String addCommenForm(@PathVariable Long projectId, @PathVariable Long taskId, Model model) {
+	@RequestMapping(value = { "/tasks/{taskId}/comment" }, method = RequestMethod.GET)
+	public String addCommenForm(@PathVariable Long taskId, Model model) {
 
-		model.addAttribute("projectId", projectId);
 		model.addAttribute("taskId", taskId);
 		model.addAttribute("CommentForm", new Comment());
 		return "addComment";
 	}
 
-	@RequestMapping(value = { "/projects/{projectId}/tasks/{taskId}/comment" }, method = RequestMethod.POST)
-	public String addComment(@PathVariable Long projectId, @PathVariable Long taskId,
+	@RequestMapping(value = { "/tasks/{taskId}/comment" }, method = RequestMethod.POST)
+	public String addComment( @PathVariable Long taskId,
 			@Valid @ModelAttribute("CommentForm") Comment comment, BindingResult commentBindingResult, Model model) {
 		User loggedUser = this.sessionData.getLoggedUser();
 
