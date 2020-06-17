@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.uniroma3.siw.taskmanager.controller.session.SessionData;
 import it.uniroma3.siw.taskmanager.controller.validation.TaskValidator;
+import it.uniroma3.siw.taskmanager.model.Comment;
 import it.uniroma3.siw.taskmanager.model.Credentials;
 import it.uniroma3.siw.taskmanager.model.Project;
 import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.model.User;
+import it.uniroma3.siw.taskmanager.service.CommentService;
 import it.uniroma3.siw.taskmanager.service.CredentialsService;
 import it.uniroma3.siw.taskmanager.service.ProjectService;
 import it.uniroma3.siw.taskmanager.service.TaskService;
@@ -35,6 +37,8 @@ public class TaskController {
 
 	@Autowired
 	TaskService taskService;
+	@Autowired
+	CommentService commentService;
 
 	@Autowired
 	UserService userService;
@@ -48,9 +52,12 @@ public class TaskController {
 	@RequestMapping(value = { "/projects/tasks/{taskId}" }, method = RequestMethod.GET)
 	public String task(Model model, @PathVariable Long taskId) {
 		Task task = this.taskService.getTask(taskId);
+        List<Comment> commentsList = commentService.retrieveCommentsOwnedBy(task);
+
 		if (task == null)
 			return "redirect:/projects";
 		model.addAttribute("task", task);
+		model.addAttribute("commentsList", commentsList);
 		return "task";
 	}
 
@@ -77,6 +84,14 @@ public class TaskController {
 		}
 		model.addAttribute("loggedUser", loggedUser);
 		return "addTask";
+	}
+	
+	@RequestMapping(value = { "/tasks/remove/{taskId}" }, method = RequestMethod.GET)
+	public String deleteTask(@PathVariable Long taskId, Model model) {
+		Task taskToDelete = this.taskService.getTask(taskId);
+		this.taskService.deleteTask(taskToDelete);
+		return "redirect:/projects";
+
 	}
 
 	@RequestMapping(value = { "/tasks/update/{taskId}" }, method = RequestMethod.GET)

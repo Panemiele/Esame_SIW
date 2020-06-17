@@ -1,5 +1,6 @@
 package it.uniroma3.siw.taskmanager.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.taskmanager.model.Comment;
+import it.uniroma3.siw.taskmanager.model.Project;
+import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.model.User;
 import it.uniroma3.siw.taskmanager.repository.CommentRepository;
 
@@ -25,8 +28,10 @@ public class CommentService {
 	}
 	
 	@Transactional
-	public Comment saveComment(Comment c, User u) {
+	public Comment saveComment(Comment c, User u, Task t) {
 		c.setOwner(u);
+		c.setTask(t);
+		c.setCommentedBy(u.getFirstName());
 		return commentRepository.save(c);
 	}
 	
@@ -35,4 +40,8 @@ public class CommentService {
 		commentRepository.delete(c);
 	}
 
+    @Transactional
+    public List<Comment> retrieveCommentsOwnedBy(Task task){
+    	return this.commentRepository.findByTask(task);
+    }
 }

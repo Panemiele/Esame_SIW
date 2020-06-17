@@ -15,6 +15,7 @@ import it.uniroma3.siw.taskmanager.controller.session.SessionData;
 import it.uniroma3.siw.taskmanager.controller.validation.CommentValidator;
 import it.uniroma3.siw.taskmanager.controller.validation.TaskValidator;
 import it.uniroma3.siw.taskmanager.model.Comment;
+import it.uniroma3.siw.taskmanager.model.Task;
 import it.uniroma3.siw.taskmanager.model.User;
 import it.uniroma3.siw.taskmanager.service.CommentService;
 import it.uniroma3.siw.taskmanager.service.CredentialsService;
@@ -58,12 +59,12 @@ public class CommentController {
 	public String addComment( @PathVariable Long taskId,
 			@Valid @ModelAttribute("CommentForm") Comment comment, BindingResult commentBindingResult, Model model) {
 		User loggedUser = this.sessionData.getLoggedUser();
+		Task task = this.taskService.getTask(taskId);
 
 		commentValidator.validate(comment, commentBindingResult);
 		if (!commentBindingResult.hasErrors()) {
-			commentService.saveComment(comment, loggedUser);
+			commentService.saveComment(comment, loggedUser, task);
 			return "redirect:/projects";
-
 		}
 
 		return "addComment";

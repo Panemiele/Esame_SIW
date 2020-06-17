@@ -12,34 +12,6 @@
 
 
 
-		<!--------------------------->
-		<!-- CONDIVISIONE PROGETTO -->
-		<!--------------------------->
-
-		<!--LISTA CONDIVISIONE-->
-		<div th:if="${members.size() > 0}">
-			<h3>Shared with:</h3>
-			<table>
-				<tr>
-					<th style="padding: right:20px">First Name</th>
-					<th>Last Name</th>
-				</tr>
-				<tr th:each="member : ${members}">
-					<td th:text="${member.firstName}">...</td>
-					<td th:text="${member.lastName}">...</td>
-				</tr>
-			</table>
-		</div>
-
-		<div th:unless="${members.size() > 0}">Project not shared with
-			anyone</div>
-
-		<!-- AGGIUNGERE NUOVO MEMBRO -->
-		<h3 style="padding-top: 30px">
-			<a th:href="'/project/share/' + ${project.id}">Share</a>
-		</h3>
-
-
 
 
 
