@@ -8,7 +8,7 @@
 	<div align="center">
 		<h1>Register new task:</h1>
 		<form id="registerCommentForm"
-			th:action="@{'/projects/' + ${projectId} + '/tasks/' + ${taskId} + '/comment' }"
+			th:action="@{'/tasks/' + ${taskId} + '/comment' }"
 			th:object="${CommentForm}" method="POST">
 			<table>
 				<tr>

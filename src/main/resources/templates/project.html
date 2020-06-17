@@ -64,7 +64,7 @@
 						<td th:text="${task.creationTimestamp}"></td>
 						<td th:text="${task.assignedTo?.firstName}"></td>
 						<td th:text="${task.completed}"></td>
-						
+
 						<td><a th:href="'/tasks/update/' + ${task.id}">Update
 								task</a>
 						<td><a
@@ -73,6 +73,8 @@
 								tag</a></td>
 						<td><a th:href="'/tasks/assignuser/' + ${task.id}">Assign
 								User </a>
+						<td><a th:href="'/tasks/' + ${task.id} + '/comment'">Comment
+								 </a>
 					</tr>
 				</tbody>
 			</table>
