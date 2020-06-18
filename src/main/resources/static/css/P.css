@@ -31,3 +31,6 @@ h3 {
 	display: inline-block;
 	padding: 5px;
 }
+td,tr,th{
+	padding: 10px;
+}

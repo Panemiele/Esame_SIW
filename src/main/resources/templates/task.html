@@ -52,25 +52,26 @@
 	<!----------------------------->
 	<!-- LISTA COMMENTI DEL TASK -->
 	<!----------------------------->
-<div style="padding-left: 200px">	
-	<h4 style="padding-top: 30px">Comments:</h4>
-	<div th:if="${task.comments.size() > 0}">
+	<div style="padding-left: 200px">
+		<h4 style="padding-top: 30px">Comments:</h4>
+		<div th:if="${task.comments.size() > 0}">
 
-		<div th:each="comment : ${task.comments}" style="padding-top: 10px">
-			<div th:text="${comment.owner.firstName}" style="font-weight: bold;"></div>
-			<div th:text="${comment.name}" class="comment-box-style"></div>
-			<div th:text="${#temporals.format(comment.date,'dd-MM-yyyy')}" ></div>
+			<div th:each="comment : ${task.comments}" style="padding-top: 10px">
+				<div th:text="${comment.owner.firstName}" style="font-weight: bold;"></div>
+				<div th:text="${comment.name}" class="comment-box-style"></div>
+				<div th:text="${#temporals.format(comment.date,'dd-MM-yyyy')}"></div>
+			</div>
 		</div>
+		<div th:unless="${task.comments.size() > 0}">No Comment to show</div>
+
 	</div>
-	<div th:unless="${task.comments.size() > 0}">No Comment to show</div>
-	
-	</div>
-	
-	<div align = "center">
+
+	<div align="center">
 		<h4 style="padding-top: 30px">
 			<a th:href="'/tasks/remove/' + ${task.id}" class="btn btn-primary">Remove
-				Task</a> <a href="/projects" class="btn btn-primary">My Projects</a> <a
-				href="/home" class="btn btn-primary">Home</a>
+				Task</a>  <a href="/projects"
+				class="btn btn-primary">My Projects</a> <a href="/home"
+				class="btn btn-primary">Home</a>
 
 		</h4>
 
