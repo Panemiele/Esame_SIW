@@ -30,7 +30,7 @@ Caso d'uso 1 REGISTER - attore principale: ATTORE1 (non esiste ancora ATTORE2)
 		    3c: l'utente inserisce una password non valida,
 			il sistema mostra un messaggio di errore
 
-		    3d: l'utente non inserisce firstname o lastname,
+		    3d: l'utente non inserisce username, password, firstname o lastname,
 			il sistema mostra un messaggio che invita a completare il campo
 
 
@@ -293,7 +293,7 @@ Caso d'uso 14 UPDATE PROFILE - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 15 REMOVE PROJECT - attore principale: ATTORE1/ATTORE2
+Caso d'uso 15 REMOVE PROJECT - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole eliminare un proprio project
 	2-L'utente seleziona "My projects", il sistema mostra l'elenco dei project
 	3-L'utente seleziona "Remove Project"
