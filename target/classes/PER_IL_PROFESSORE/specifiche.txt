@@ -94,7 +94,7 @@ Caso d'uso 4 SHOW PROJECT - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 5 SHARE PROJECT - attore principale: ATTORE1/ATTORE2
+Caso d'uso 5 SHARE PROJECT - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole condividere un project con un altro utente del sistema
 	2-L'utente seleziona "Share" per condividere il project
 	3-L'utente inserisce lo username dell'utente col quale condividere il project
@@ -134,7 +134,7 @@ Caso d'uso 6 SHOW SHARED PROJECTS - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 7 ADD TAG (al project) - attore principale: ATTORE1/ATTORE2
+Caso d'uso 7 ADD TAG (al project) - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole aggiungere un Tag al project
 	2-L'utente seleziona "Add tag"
 	3-L'utente inserisce il nome, la descrizione ed il colore del tag
@@ -161,7 +161,7 @@ Caso d'uso 7 ADD TAG (al project) - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 8 ADD TASK (al project) - attore principale: ATTORE1/ATTORE2
+Caso d'uso 8 ADD TASK (al project) - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole aggiungere un task al project
 	2-L'utente seleziona "Create task"
 	3-L'utente inserisce il nome, la descrizione del task
@@ -182,7 +182,7 @@ Caso d'uso 8 ADD TASK (al project) - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 9 ADD TAG (al task) - attore principale: ATTORE1/ATTORE2
+Caso d'uso 9 ADD TAG (al task) - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole associare un tag del progetto ad un task
 	2-L'utente seleziona "Add tag" in corrispondenza del task scelto
 	3-L'utente inserisce il nome del tag da associare
@@ -216,7 +216,7 @@ Caso d'uso 10 UPDATE PROJECT - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 10 UPDATE TASK - attore principale: ATTORE1/ATTORE2
+Caso d'uso 10 UPDATE TASK - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole aggiornare i dati di un task di un proprio project
 	2-L'utente seleziona "Update task"
 	3-L'utente inserisce il nuovo nome, la nuova descrizione e/o se il task
@@ -229,7 +229,7 @@ Caso d'uso 10 UPDATE TASK - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 11 ASSIGN TASK - attore principale: ATTORE1/ATTORE2 
+Caso d'uso 11 ASSIGN TASK - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole assegnare un task ad un utente membro del progetto
 	2-L'utente seleziona "Assign user" in corrispondenza del task scelto
 	3-L'utente inserisce lo username del membro del progetto
@@ -305,7 +305,7 @@ Caso d'uso 15 REMOVE PROJECT - attore principale: ATTORE1/ATTORE2
 
 
 
-Caso d'uso 16 REMOVE TASK - attore principale: ATTORE1/ATTORE2
+Caso d'uso 16 REMOVE TASK - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
 	1-L'utente vuole eliminare un task da un proprio project
 	2-L'utente seleziona il task da eliminare, il sistema mostra il dettaglio del task
 	3-L'utente seleziona "Remove Task"
