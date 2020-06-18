@@ -59,6 +59,9 @@ public class TaskService {
     @Transactional
     public void deleteTask(Task task, Project p) {
     	p.getTasks().remove(task);
+    	for(ProjectTag pt: task.getTags()) {
+    		pt.getTasks().remove(task);
+    	}
         this.taskRepository.delete(task);
     }
     
