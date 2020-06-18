@@ -127,7 +127,7 @@ public class UserController {
     	model.addAttribute("userId", userId);
     	model.addAttribute("projectId", projectId);
     	this.projectService.deleteProject(this.projectService.getProject(projectId));
-    	return "userOwnedProjects";
+    	return "redirect:/admin/users/" + userId + "/projects";
     }
     
 }
