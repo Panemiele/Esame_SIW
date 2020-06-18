@@ -41,7 +41,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 
                 //ADD BY GABRIELE: Permette di visualizzare i vari background anche a chi
                 //				   NON è stato autenticato
-                .antMatchers(HttpMethod.GET, "/fogliCSS/**", "/images/**", "/wallpaper/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/css/**", "/images/**", "/wallpaper/**").permitAll()
                 // anyone (authenticated or not) can send POST requests to the login endpoint and the register endpoint
                 .antMatchers(HttpMethod.POST, "/login", "/users/register").permitAll()
                 // only authenticated users with ADMIN authority can access the admin pag

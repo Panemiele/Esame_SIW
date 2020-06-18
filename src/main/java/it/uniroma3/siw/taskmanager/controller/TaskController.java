@@ -118,7 +118,7 @@ public class TaskController {
 			this.taskService.saveTask(taskToUpdate);
 			return "redirect:/projects";
 		}
-		return "redirect:/projects/update/" + taskId;
+		return "redirect:/tasks/update/" + taskId;
 
 	}
 

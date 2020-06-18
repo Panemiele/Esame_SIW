@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div align="center">
-		<h1 th:text="'task: ' + ${task.name}"></h1>
+		<h1 th:text="'Task: ' + ${task.name}"></h1>
 		<table>
 			<tr>
 				<td>Task name:</td>
@@ -47,39 +47,37 @@
 		</div>
 		<div th:unless="${task.tags.size() > 0}">No tag to show</div>
 
+	</div>
 
+	<!----------------------------->
+	<!-- LISTA COMMENTI DEL TASK -->
+	<!----------------------------->
+<div style="padding-left: 100px">	
+	<h4 style="padding-top: 30px">Comments:</h4>
+	<div th:if="${task.comments.size() > 0}">
 
-		<!----------------------------->
-		<!-- LISTA COMMENTI DEL TASK -->
-		<!----------------------------->
-		<h4 style="padding-top: 30px">Comments:</h4>
-		<div th:if="${task.comments.size() > 0}">
-			<table>
-				<tr>
-					<th style="padding: right:20px">Commented By</th>
-					<th>Text</th>
-					<th>Date</th>
-
-				</tr>
-				<tr th:each="comment : ${task.comments}">
-					<td th:text="${comment.owner.firstName}"></td>
-					<td th:text="${comment.name}"></td>
-					<td th:text="${#temporals.format(comment.date,'dd-MM-yyyy')}"></td>
-				</tr>
-			</table>
+		<div th:each="comment : ${task.comments}" style="padding-top: 10px">
+			<div th:text="${comment.owner.firstName}" style="font-weight: bold;"></div>
+			<div th:text="${comment.name}" class="comment-box-style"></div>
+			<div th:text="${#temporals.format(comment.date,'dd-MM-yyyy')}" ></div>
 		</div>
-		<div th:unless="${task.tags.size() > 0}">No Comment to show</div>
-
+	</div>
+	<div th:unless="${task.comments.size() > 0}">No Comment to show</div>
+	
+	</div>
+	
+	<div align = "center">
 		<h4 style="padding-top: 30px">
-			<a href="/projects" class="btn btn-primary">My Projects</a>
+			<a th:href="'/tasks/remove/' + ${task.id}" class="btn btn-primary">Remove
+				Task</a> <a href="/projects" class="btn btn-primary">My Projects</a> <a
+				href="/home" class="btn btn-primary">Home</a>
+
 		</h4>
 
-		<h4 style="padding-top: 30px">
-			<a href="/home" class="btn btn-primary">Home</a>
-		</h4>
 
-		<td><a th:href="'/tasks/remove/' + ${task.id}">Remove
-				Task</a>
+
+
+
 	</div>
 </body>
 </html>
