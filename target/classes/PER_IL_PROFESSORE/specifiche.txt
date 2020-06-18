@@ -316,6 +316,16 @@ Caso d'uso 16 REMOVE TASK - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJE
 
 
 
+Caso d'uso 17 REMOVE TAG - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJECT)
+	1-L'utente vuole eliminare un tag da un proprio project
+	2-L'utente seleziona il tag da eliminare, il sistema mostra il dettaglio del tag
+	3-L'utente seleziona "Remove Tag"
+	4-Il tag viene eliminato dal sistema
+
+
+
+
+
 
 
 
@@ -325,7 +335,7 @@ Caso d'uso 16 REMOVE TASK - attore principale: ATTORE1/ATTORE2 (SOLO OWNER PROJE
 /* ONLY ADMIN */ NB: Per diventare Admin è necessario accedere al DB
 /**************/
 
-Caso d'uso 17 ALL USER - attore principale: ATTORE2
+Caso d'uso 18 ALL USER - attore principale: ATTORE2
 	1-L'admin vuole visualizzare la lista di tutti gli utenti del sistema
 	2-L'admin seleziona "All users list"
 	3-Il sistema mostra l'elenco di tutti gli utenti con un link verso i project
@@ -336,7 +346,7 @@ Caso d'uso 17 ALL USER - attore principale: ATTORE2
 
 
 
-Caso d'uso 18 DELETE USER - attore principale: ATTORE2
+Caso d'uso 19 DELETE USER - attore principale: ATTORE2
 	1-L'admin vuole eliminare un utente dal sistema
 	2-L'admin seleziona "All users list"
 	3-Il sistema mostra l'elenco di tutti gli utenti con un link verso i project
@@ -349,7 +359,7 @@ Caso d'uso 18 DELETE USER - attore principale: ATTORE2
 
 
 
-Caso d'uso 19 DELETE USER PROJECT - attore principale: ATTORE2
+Caso d'uso 20 DELETE USER PROJECT - attore principale: ATTORE2
 	1-L'admin vuole eliminare un project di un utente del sistema
 	2-L'admin seleziona "All users list"
 	3-Il sistema mostra l'elenco di tutti gli utenti con un link verso i project
