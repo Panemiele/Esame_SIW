@@ -26,9 +26,21 @@
 						th:errors="*{description}" th:style="'color:red'"></td>
 				</tr>
 			</table>
-			<button type="submit">Register</button>
+			<div style="padding-top: 10px">
+				<button type="submit" class="btn btn-primary">Register</button>
+			</div>
 		</form>
-		<a href="/home" class="btn btn-primary">Home</a>
-	</div>
+
+		<div align="center">
+			<h4 style="padding-top: 30px">
+			<a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back to Project</a>
+				<a href="/projects" class="btn btn-primary">My Projects</a> <a
+					href="/home" class="btn btn-primary">Home</a>
+
+			</h4>
+
+			
+
+		</div>
 </body>
 </html>

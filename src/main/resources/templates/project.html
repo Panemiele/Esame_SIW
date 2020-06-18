@@ -10,8 +10,8 @@
 	<div align="center">
 		<h1 th:text="${project.name}"></h1>
 		<h4 th:text="${project.description}" style="color: gray"></h4>
-		<h4 th:text="${project.date}" style="color: gray"></h4>
-
+		<h4 th:text="${#temporals.format(project.date,'dd-MM-yyyy')}"
+			style="color: gray"></h4>
 
 
 		<!--------------------------->
@@ -63,7 +63,8 @@
 						<td><a th:href="'/projects/tasks/' + ${task.id}"
 							th:text="${task.name}"></a></td>
 						<td th:text="${task.description}"></td>
-						<td th:text="${task.creationTimestamp}"></td>
+						<td
+							th:text="${#temporals.format(task.creationTimestamp,'dd-MM-yyyy')}"></td>
 						<td th:text="${task.assignedTo?.firstName}"></td>
 						<td th:if="${task.completed}">Yes</td>
 						<td th:unless="${task.completed}">No</td>
@@ -105,39 +106,31 @@
 		</div>
 		<div th:unless="${project.tags.size() > 0}">No tag to show</div>
 
-		<!------------------------------>
-		<!-- AGGIUNGI TAG AL PROGETTO -->
-		<!------------------------------>
-		<h4 style="padding-top: 30px">
-			<a th:href="'/project/' + ${project.id} + '/addTag'">Add Tag</a>
-		</h4>
-
-
-
 
 
 		<!--------------->
 		<!-- LINK VARI -->
 		<!--------------->
-		<h4>
-			<a href="/projects">My Projects</a>
-		</h4>
 
 
 
-		<h4>
-			<a th:href="'/projects/' + ${project.id} + '/tasks/add'">Create
-				Task</a>
-		</h4>
+
+		<div align="center">
+			<h4 style="padding-top: 30px">
+				<a href="/projects" class="btn btn-primary">My Projects</a> <a
+					th:href="'/projects/' + ${project.id} + '/tasks/add'"
+					class="btn btn-primary">Create Task</a> <a
+					th:href="'/project/' + ${project.id} + '/addTag'"
+					class="btn btn-primary">Add Tag</a>
+			</h4>
+
+
+			<h4>
+				<a href="/home" class="btn btn-primary">Home</a>
+			</h4>
 
 
 
-		<h4>
-			<a href="/home" class="btn btn-primary">Home</a>
-		</h4>
-
-
-
-	</div>
+		</div>
 </body>
 </html>

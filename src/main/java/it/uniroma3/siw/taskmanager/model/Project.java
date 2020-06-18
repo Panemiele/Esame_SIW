@@ -6,11 +6,13 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Project is an activity managed by the TaskManager.
@@ -41,7 +43,7 @@ public class Project {
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column
-    private Date date;
+    private LocalDate date;
 
     /**
      * Name for this Project
@@ -60,7 +62,7 @@ public class Project {
      */
     @OneToMany(mappedBy="project",fetch = FetchType.EAGER,        // whenever a Project is retrieved, always retrieve its tasks too
             cascade = CascadeType.ALL)   // if a Project is deleted, all its tasks must be deleted too
-    private List<Task> tasks;
+    private Set<Task> tasks;
     
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -70,7 +72,7 @@ public class Project {
     
     public Project() {
         this.members = new ArrayList<>();
-        this.tasks = new ArrayList<>();
+        this.tasks = new HashSet<>();
         this.tags = new ArrayList<>();
     }
 
@@ -125,11 +127,11 @@ public class Project {
         this.members = members;
     }
 
-    public List<Task> getTasks() {
+    public Set<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
     
@@ -175,11 +177,11 @@ public class Project {
         return Objects.hash(name);
     }
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 }

@@ -37,21 +37,19 @@
 			</table>
 			
 			
-			
-			<div style="padding-top: 20px">
-				<button type="submit">Confirm</button>
+		<div style="padding-top: 10px">
+				<button type="submit" class="btn btn-primary">Add Tag</button>
 			</div>
 		</form>
 		
 		
-		
-		
-		<div style="padding-top: 20px">
-			<a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back</a>
-		</div>
-		<div style="padding-top: 20px">
-			<a href="/home" class="btn btn-primary">Home</a>
-		</div>
+			<div align="center">
+			<h4 style="padding-top: 30px">
+			<a th:href="'/projects/' + ${projectId}" class="btn btn-primary">Back to Project</a>
+				<a href="/projects" class="btn btn-primary">My Projects</a> <a
+					href="/home" class="btn btn-primary">Home</a>
+
+			</h4>
 	</div>
 </body>
 </html>
