@@ -74,4 +74,6 @@ public class ProjectService {
     public List<Project> retrieveProjectsOwnedBy(User loggedUser){
     	return this.projectRepository.findByOwner(loggedUser);
     }
+    
+    
 }

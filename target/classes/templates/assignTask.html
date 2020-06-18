@@ -19,12 +19,21 @@
 					<td th:if="${#fields.hasErrors('userName')}"
 						th:errors="*{userName}" th:style="'color:red'"></td>
 				</tr>
-				<tr>
-					<td><button type="submit">Assign Task</button></td>
-				</tr>
+
 			</table>
+
+			<div style="padding-top: 10px">
+				<button type="submit" class="btn btn-primary">Assign Task</button>
+			</div>
 		</form>
-		<a href="/home">Home</a>
+
+		<div align="center">
+			<h4 style="padding-top: 30px">
+				<a href="/projects" class="btn btn-primary">My Projects</a> <a
+					href="/home" class="btn btn-primary">Home</a>
+
+			</h4>
+		</div>
 	</div>
 </body>
 </html>
