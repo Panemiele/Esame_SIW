@@ -62,7 +62,7 @@
 
 				</tr>
 				<tr th:each="comment : ${task.comments}">
-					<td th:text="${comment.owner.firstName}"></td>
+					<td th:text="${comment.commentedBy}"></td>
 					<td th:text="${comment.name}"></td>
 					<td th:text="${#temporals.format(comment.date,'dd-MM-yyyy')}"></td>
 				</tr>

@@ -2,9 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org">
 <head
-	th:replace="fragments/base.html::head(title='Task Manager - ownedProjects')">
-	  <link rel="stylesheet" href="mystyle.css">
-	
+	th:replace="fragments/base.html::head(title='Task Manager - userProjects(A)')">
 </head>
 <body>
 	<div align="center">
@@ -19,20 +17,17 @@
 				</thead>
 				<tbody>
 					<tr th:each="project : ${projectsList}">
-						<td><a th:href="'/projects/' + ${project.id}"
-							th:text="${project.name}">...</a></td>
+						<td th:text="${project.name}"></td>
 						<td th:text="${project.description}"></td>
-						<td><a th:href="'/projects/update/' + ${project.id}">Update
-								Information</a>
-						<td><a th:href="'/projects/remove/' + ${project.id}">Remove
-								Project</a>
+						<td><a th:href="'/admin/users/' + ${userId} + '/projects/' +
+									    ${project.id} + '/remove'">Remove Project</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 
 		<h4>
-			<a href="/home" class="btn btn-primary">Home</a>
+			<a href="/admin" class="btn btn-primary">Home(A)</a>
 		</h4>
 	</div>
 </body>
