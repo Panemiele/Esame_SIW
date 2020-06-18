@@ -11,10 +11,6 @@
 		<h4 th:text="${project.date}" style="color: gray"></h4>
 
 
-
-
-
-
 		<!----------------------------->
 		<!-- LISTA TASK DEL PROGETTO -->
 		<!----------------------------->
@@ -74,15 +70,6 @@
 			</table>
 		</div>
 		<div th:unless="${project.tags.size() > 0}">No tag to show</div>
-
-		<!------------------------------>
-		<!-- AGGIUNGI TAG AL PROGETTO -->
-		<!------------------------------>
-		<h4 style="padding-top: 30px">
-			<a th:href="'/project/' + ${project.id} + '/addTag'">Add Tag</a>
-		</h4>
-
-
 
 
 

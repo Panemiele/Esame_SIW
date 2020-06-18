@@ -31,7 +31,6 @@ public class CommentService {
 	public Comment saveComment(Comment c, User u, Task t) {
 		c.setOwner(u);
 		c.setTask(t);
-		c.setCommentedBy(u.getFirstName());
 		return commentRepository.save(c);
 	}
 	

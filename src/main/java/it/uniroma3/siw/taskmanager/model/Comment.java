@@ -21,14 +21,11 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	/**
-	 * Name for this Project
-	 */
+
+	
 	@Column(nullable = false, length = 100)
 	private String name;
-	
-	@Column(nullable= false)
-	private String commentedBy;
+
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column
@@ -103,11 +100,4 @@ public class Comment {
 		this.task = task;
 	}
 
-	public String getCommentedBy() {
-		return commentedBy;
-	}
-
-	public void setCommentedBy(String commentedBy) {
-		this.commentedBy = commentedBy;
-	}
 }

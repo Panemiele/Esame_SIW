@@ -60,7 +60,7 @@ public class Task {
     private LocalDateTime lastUpdateTimestamp;
     
     
-    @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER)
     private List<ProjectTag> tags;   //Lista di tag del task
     
     @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
